@@ -1,6 +1,6 @@
 # fraud detection
 
-### 1st model: LayoutLMV2
+### 1st model: [LayoutLMV2](https://huggingface.co/transformers/model_doc/layoutlmv2.html)
 The LayoutLMV2 model was proposed in [LayoutLMv2: Multi-modal Pre-training for Visually-Rich Document Understanding](https://arxiv.org/pdf/2012.14740.pdf) by Yang Xu, Yiheng Xu, Tengchao Lv, Lei Cui, Furu Wei, Guoxin Wang, Yijuan Lu, Dinei Florencio, Cha Zhang, Wanxiang Che, Min Zhang, Lidong Zhou. LayoutLMV2 improves LayoutLM to obtain state-of-the-art results across several document image understanding benchmarks:
 
   - information extraction from _scanned_ documents: the [FUNSD](https://guillaumejaume.github.io/FUNSD/) dataset (a collection of 199 annotated forms comprising more than 30,000 words), the [CORD](https://github.com/clovaai/cord) dataset (a collection of 800 _receipts_ for training, 100 for validation and 100 for testing), the [SROIE](https://rrc.cvc.uab.es/?ch=13) dataset (a collection of 626 _receipts_ for training and 347 receipts for testing) and the [Kleister-NDA](https://github.com/applicaai/kleister-nda) dataset (a collection of _non-disclosure agreements_ from the EDGAR database, including 254 documents for training, 83 documents for validation, and 203 documents for testing).
@@ -21,5 +21,8 @@ CamemBERT is a state-of-the-art language model for French based on the RoBERTa m
 For further information or requests, please go to [Camembert Website](https://camembert-model.fr/).
 
 
+### Model: LayoutLMV2+Camembert
 
+#### [Dice loss](https://aclanthology.org/2020.acl-main.45.pdf) (for imbalanced datasets)
 
+Dice loss attaches similar importance to false positives and false negatives, and is more immune to the data-imbalance issue.
