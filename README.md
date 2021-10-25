@@ -33,4 +33,10 @@ Dice loss attaches similar importance to false positives and false negatives, an
 ```
 pip -r install requirements.txt
 python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
+
+### Train
+
+```
+TOKENIZERS_PARALLELISM=false CUDA_DEVICE_ORDER=PCI_BUS_ID CUDA_VISIBLE_DEVICES=0 python train.py --train_file data/train.txt --test_file data/test.txt --out runs/32-256-entities --batch_size 4 --model_name_or_path camembert-base --do_train --num_train_epochs 4
+```
 ```
