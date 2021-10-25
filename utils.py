@@ -4,7 +4,6 @@ import re
 from nltk.corpus import stopwords
 stopwords = stopwords.words('english')
 
-
 def text_cleaner(text):
 
     text = re.sub(r"@\w*", " ", str(text)).strip()  # removing username
@@ -19,3 +18,4 @@ def text_cleaner(text):
                 tw.append(text)
     tw = re.sub(r"\s+", '-', ' '.join(tw))
     return tw
+
