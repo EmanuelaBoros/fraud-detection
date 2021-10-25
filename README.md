@@ -26,3 +26,11 @@ For further information or requests, please go to [Camembert Website](https://ca
 #### [Dice loss](https://aclanthology.org/2020.acl-main.45.pdf) (for imbalanced datasets)
 
 Dice loss attaches similar importance to false positives and false negatives, and is more immune to the data-imbalance issue.
+
+
+### Install
+
+```
+pip -r install requirements.txt
+python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
+```
