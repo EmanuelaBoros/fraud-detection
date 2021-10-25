@@ -3,14 +3,10 @@
 # -*- coding: utf-8 -*-
 from sadice import SelfAdjDiceLoss
 from torch import nn
-from transformers import (XLMRobertaTokenizer, XLMRobertaModel, BertConfig,
-                          get_linear_schedule_with_warmup, BertPreTrainedModel,
-                          RobertaConfig,
+from transformers import (get_linear_schedule_with_warmup,
                           get_cosine_schedule_with_warmup,
-                          LayoutLMv2Model, LayoutLMv2Config,
                           AutoTokenizer, AutoConfig)
-import re
-from transformers import (ViTConfig, LayoutLMv2FeatureExtractor,
+from transformers import (LayoutLMv2FeatureExtractor,
                           LayoutLMv2TokenizerFast, LayoutLMv2Processor)
 from models import LayoutLMvForSequenceClassification
 from models import ImageFeatureExtractor, CustomDataset
@@ -18,11 +14,8 @@ import random
 import os
 from tqdm import tqdm
 import argparse
-import json
-from torch.utils.data import (Dataset, DataLoader,
-                              RandomSampler, SequentialSampler)
+from torch.utils.data import DataLoader
 import torch
-import transformers
 from sklearn import metrics
 import pandas as pd
 import numpy as np
@@ -45,8 +38,6 @@ torch.backends.cudnn.deterministic = True
 
 
 # Defining some key variables that will be used later on in the training
-MAX_LEN = 256
-LEARNING_RATE = 2e-05
 
 parser = argparse.ArgumentParser()
 
@@ -54,103 +45,70 @@ parser.add_argument('--train_file', type=str, default="data/train.txt",
                     help='Train file (train.txt)')
 parser.add_argument('--test_file', type=str, default="data/test.txt",
                     help='Test file (test.csv)')
+parser.add_argument('--max_length', type=int, default=256,
+                    help='Maximum text length')
 parser.add_argument(
-    '--out',
+    '--out_dir',
     type=str,
-    default='experiments',
-    help='The path of the directory where the *.csv data will be saved')
+    default='runs',
+    help='The path of the directory where the data/models will be saved')
 parser.add_argument('--val_steps', type=int, default=1000,
                     help='val_steps')
 parser.add_argument('--batch_size', type=int, default=8,
                     help='val_steps')
-parser.add_argument(
-    "--adam_beta1",
-    default=0.9,
-    type=float,
-    help="BETA1 for Adam optimizer.")
-parser.add_argument(
-    "--adam_beta2",
-    default=0.999,
-    type=float,
-    help="BETA2 for Adam optimizer.")
-parser.add_argument(
-    "--do_lower_case",
-    action="store_true",
-    help="Set this flag if you are using an uncased model.")
-parser.add_argument(
-    "--weight_decay",
-    default=0.0,
-    type=float,
-    help="Weight decay if we apply some.")
-parser.add_argument("--local_rank", type=int, default=-
-                    1, help="For distributed training: local_rank")
+parser.add_argument("--adam_beta1", default=0.9, type=float,
+                    help="BETA1 for Adam optimizer.")
+parser.add_argument("--adam_beta2", default=0.999, type=float,
+                    help="BETA2 for Adam optimizer.")
+parser.add_argument("--do_lower_case", action="store_true",
+                    help="Set this flag if you are using an uncased model.")
+parser.add_argument("--weight_decay", default=0.0, type=float,
+                    help="Weight decay if we apply some.")
+parser.add_argument("--local_rank", type=int, default=-1,
+                    help="For distributed training: local_rank")
 parser.add_argument(
     "--gradient_accumulation_steps",
     type=int,
     default=1,
-    help="Number of updates steps to accumulate before performing a backward/update pass.",
-)
-parser.add_argument(
-    "--num_train_epochs",
-    default=3.0,
-    type=float,
-    help="Total number of training epochs to perform.")
-parser.add_argument(
-    "--no_cuda",
-    action="store_true",
-    help="Avoid using CUDA when available")
-parser.add_argument(
-    "--do_train",
-    action="store_true",
-    help="Whether to run training.")
-parser.add_argument(
-    "--do_eval",
-    action="store_true",
-    help="Whether to run eval on the dev set.")
-parser.add_argument(
-    "--do_predict",
-    action="store_true",
-    help="Whether to run predictions on the test set.")
-parser.add_argument(
-    "--learning_rate",
-    default=5e-5,
-    type=float,
-    help="The initial learning rate for Adam.")
+    help="Number of updates steps to accumulate before performing a backward/update pass.")
+parser.add_argument("--num_train_epochs", default=4.0, type=float,
+                    help="Total number of training epochs to perform.")
+parser.add_argument("--no_cuda", action="store_true",
+                    help="Avoid using CUDA when available")
+parser.add_argument("--do_train", action="store_true",
+                    help="Whether to run training.")
+parser.add_argument("--do_eval", action="store_true",
+                    help="Whether to run eval on the dev set.")
+parser.add_argument("--do_predict", action="store_true",
+                    help="Whether to run predictions on the test set.")
+parser.add_argument("--learning_rate", default=2e-05, type=float,
+                    help="The initial learning rate for Adam.")
 parser.add_argument(
     "--cache_dir",
     default="temp",
     type=str,
-    help="Where do you want to store the pre-trained models downloaded from s3",
-)
+    help="Where do you want to store the pre-trained models downloaded from s3")
 parser.add_argument(
     "--model_name_or_path",
     default=None,
     type=str,
     required=True,
-    help="Path to pre-trained model or shortcut name selected in the list ",
-)
-parser.add_argument(
-    "--adam_epsilon",
-    default=1e-8,
-    type=float,
-    help="Epsilon for Adam optimizer.")
-parser.add_argument(
-    "--warmup_steps",
-    default=0,
-    type=int,
-    help="Linear warmup over warmup_steps.")
-parser.add_argument(
-    "--save_steps",
-    type=int,
-    default=50,
-    help="Save checkpoint every X updates steps.")
+    help="Path to pre-trained model or shortcut name selected in the list ")
+parser.add_argument("--adam_epsilon", default=1e-8, type=float,
+                    help="Epsilon for Adam optimizer.")
+parser.add_argument("--warmup_steps", default=0, type=int,
+                    help="Linear warmup over warmup_steps.")
+parser.add_argument("--save_steps", type=int, default=50,
+                    help="Save checkpoint every X updates steps.")
 
 args = parser.parse_args()
 train_file = args.train_file
 test_file = args.test_file
-output_dir = args.out
+output_dir = args.out_dir
 TRAIN_BATCH_SIZE = args.batch_size
 VALID_BATCH_SIZE = args.batch_size
+MAX_LEN = args.max_length
+LEARNING_RATE = args.learning_rate
 
 
 # Setup CUDA, GPU & distributed training
@@ -166,15 +124,7 @@ else:  # Initializes the distributed backend which will take care of sychronizin
 
 args.device = device
 
-print('device', device)
-
-train_df = pd.read_csv(train_file, sep='\t')
-test_df = pd.read_csv(test_file, sep='\t')
-
-print(train_df.head())
-
-print("TRAIN Dataset: {}".format(train_df.shape))
-print("TEST Dataset: {}".format(test_df.shape))
+print('Device', device)
 
 
 class AttentionHead(nn.Module):
@@ -201,7 +151,7 @@ def loss_fct(outputs, targets):
     return torch.nn.MSELoss()(outputs, targets.view(-1, 1))
 
 
-def evaluation(model, epoch):
+def evaluation(model, epoch, test_df):
     model.eval()
     fin_targets_priorities = []
     fin_outputs_priorities = []
@@ -234,12 +184,13 @@ def evaluation(model, epoch):
                 torch.argmax(
                     nn.Softmax(
                         dim=1)(logits), -1).cpu().detach().numpy().tolist())
-            print(nn.Softmax(
-                dim=1)(logits))
+
+#            print(nn.Softmax(
+#                        dim=1)(logits))
             fin_targets_priorities.extend(
                 targets.cpu().detach().numpy().tolist())
-            print(targets)
-            print('-' * 30)
+#            print(targets)
+#            print('-'*30)
 
     accuracy = metrics.accuracy_score(
         fin_targets_priorities,
@@ -256,10 +207,13 @@ def evaluation(model, epoch):
         metrics.classification_report(
             fin_targets_priorities,
             fin_outputs_priorities,
-            digits=4))
-#
-#    with open(os.path.join(output_dir, 'test.results.' + str(epoch) + '.json'), 'w', encoding='utf-8') as f:
-#        json.dump(data, f, ensure_ascii=False, indent=2)
+            digits=4, target_names=['Normal', 'Fraud']))
+
+    with open(os.path.join(output_dir, 'test.results.' + str(epoch) + '.txt'), 'w', encoding='utf-8') as f:
+        for y_true, y_predicted, image_path, text_path in zip(
+                fin_targets_priorities, fin_outputs_priorities, test_df.image, test_df.text):
+            f.write(image_path + '\t' + text_path + '\t' +
+                    y_true + '\t' + y_predicted + '\n')
 
     return fin_targets_priorities, fin_outputs_priorities
 
@@ -352,109 +306,127 @@ def train(model, optimizer, scheduler, epoch, tokenizer_text, processor):
         scheduler.step()
 
 
-if args.do_train:
+if __name__ == '__main__':
+    train_df = pd.read_csv(train_file, sep='\t')
+    test_df = pd.read_csv(test_file, sep='\t')
 
-    #    tokenizer = AutoTokenizer.from_pretrained('microsoft/layoutlmv2-base-uncased', do_lower_case=True, truncation=True)
+    print(train_df.head())
 
-    feature_extractor = ImageFeatureExtractor.from_pretrained(
-        'google/vit-base-patch16-224')
+    print("TRAIN Dataset: {}".format(train_df.shape))
+    print("TEST Dataset: {}".format(test_df.shape))
 
-    feature_extractor = LayoutLMv2FeatureExtractor()
-    tokenizer_image = LayoutLMv2TokenizerFast.from_pretrained(
-        "microsoft/layoutlmv2-base-uncased")
-    processor = LayoutLMv2Processor(feature_extractor, tokenizer_image)
+    if args.do_train:
 
-    tokenizer_text = AutoTokenizer.from_pretrained(
-        args.model_name_or_path, do_lower_case=True, truncation=True)
-    training_set = CustomDataset(train_df, tokenizer_text, processor, MAX_LEN)
-    testing_set = CustomDataset(test_df, tokenizer_text, processor, MAX_LEN)
+        #    tokenizer = AutoTokenizer.from_pretrained('microsoft/layoutlmv2-base-uncased', do_lower_case=True, truncation=True)
 
-    train_params = {'batch_size': TRAIN_BATCH_SIZE,
-                    'shuffle': True,
-                    'num_workers': 0
-                    }
+        feature_extractor = ImageFeatureExtractor.from_pretrained(
+            'google/vit-base-patch16-224')
 
-    test_params = {'batch_size': VALID_BATCH_SIZE,
-                   'shuffle': False,
-                   'num_workers': 0
-                   }
+        feature_extractor = LayoutLMv2FeatureExtractor()
+        tokenizer_image = LayoutLMv2TokenizerFast.from_pretrained(
+            "microsoft/layoutlmv2-base-uncased")
+        processor = LayoutLMv2Processor(feature_extractor, tokenizer_image)
 
-    training_loader = DataLoader(training_set, **train_params)
-    testing_loader = DataLoader(testing_set, **test_params)
+        tokenizer_text = AutoTokenizer.from_pretrained(
+            args.model_name_or_path, do_lower_case=True, truncation=True)
+        training_set = CustomDataset(
+            train_df, tokenizer_text, processor, MAX_LEN)
+        testing_set = CustomDataset(
+            test_df, tokenizer_text, processor, MAX_LEN)
 
-#    model = ViTForImageClassification.from_pretrained('google/vit-base-patch16-224')
-#    config_image = ViTConfig.from_pretrained('google/vit-base-patch16-224')
-    config_image = LayoutLMv2Config.from_pretrained(
-        'microsoft/layoutlmv2-base-uncased')
-    config_text = AutoConfig.from_pretrained(args.model_name_or_path)
-#    model = TextImageClassification(config_image, config, args)
-    model = LayoutLMvForSequenceClassification(config_image, config_text, args)
+        train_params = {'batch_size': TRAIN_BATCH_SIZE,
+                        'shuffle': True,
+                        'num_workers': 0
+                        }
 
-    model.to(device)
-    if args.n_gpu > 1:
-        model = torch.nn.DataParallel(model)
+        test_params = {'batch_size': VALID_BATCH_SIZE,
+                       'shuffle': False,
+                       'num_workers': 0
+                       }
 
-    no_decay = ["bias", "LayerNorm.weight"]
-    optimizer_grouped_parameters = [
-        {
-            "params": [
-                p for n, p in model.named_parameters() if not any(
-                    nd in n for nd in no_decay)], "weight_decay": args.weight_decay, }, {
-            "params": [
-                p for n, p in model.named_parameters() if any(
-                    nd in n for nd in no_decay)], "weight_decay": 0.0}, ]
+        training_loader = DataLoader(training_set, **train_params)
+        testing_loader = DataLoader(testing_set, **test_params)
 
-    t_total = len(
-        training_loader) // args.gradient_accumulation_steps * args.num_train_epochs
-#
-    optimizer = torch.optim.AdamW(
-        #        optimizer_grouped_parameters,
-        lr=args.learning_rate,
-        eps=args.adam_epsilon,
-        betas=(
+    #    model = ViTForImageClassification.from_pretrained('google/vit-base-patch16-224')
+    #    config_image = ViTConfig.from_pretrained('google/vit-base-patch16-224')
+        config_image = AutoConfig.from_pretrained(
+            'microsoft/layoutlmv2-base-uncased')
+        config_text = AutoConfig.from_pretrained(args.model_name_or_path)
+    #    model = TextImageClassification(config_image, config, args)
+        model = LayoutLMvForSequenceClassification(
+            config_image, config_text, args)
+
+        model.to(device)
+        if args.n_gpu > 1:
+            model = torch.nn.DataParallel(model)
+
+        no_decay = ["bias", "LayerNorm.weight"]
+        optimizer_grouped_parameters = [
+            {
+                "params": [
+                    p for n, p in model.named_parameters() if not any(
+                        nd in n for nd in no_decay)], "weight_decay": args.weight_decay, }, {
+                "params": [
+                    p for n, p in model.named_parameters() if any(
+                        nd in n for nd in no_decay)], "weight_decay": 0.0}, ]
+
+        t_total = len(
+            training_loader) // args.gradient_accumulation_steps * args.num_train_epochs
+    #
+        optimizer = torch.optim.AdamW(model.parameters(),
+                                      #        optimizer_grouped_parameters,
+                                      lr=args.learning_rate,
+                                      eps=args.adam_epsilon,
+                                      betas=(
             args.adam_beta1,
             args.adam_beta2))
 
-#    optimizer = create_optimizer(model)
+    #    optimizer = create_optimizer(model)
 
-    scheduler = get_linear_schedule_with_warmup(
-        optimizer,
-        num_warmup_steps=args.warmup_steps,
-        num_training_steps=t_total)
+        scheduler = get_linear_schedule_with_warmup(
+            optimizer,
+            num_warmup_steps=args.warmup_steps,
+            num_training_steps=t_total)
 
-#    scheduler = get_cosine_schedule_with_warmup(
-#            optimizer,
-#            num_training_steps=t_total,
-#            num_warmup_steps=args.warmup_steps)
+    #    scheduler = get_cosine_schedule_with_warmup(
+    #            optimizer,
+    #            num_training_steps=t_total,
+    #            num_warmup_steps=args.warmup_steps)
 
-    for epoch in range(int(args.num_train_epochs)):
-        train(model, optimizer, scheduler, epoch, tokenizer_text, processor)
-        _, _ = evaluation(model, epoch)
+        for epoch in range(int(args.num_train_epochs)):
+            train(
+                model,
+                optimizer,
+                scheduler,
+                epoch,
+                tokenizer_text,
+                processor)
+            _, _ = evaluation(model, epoch, test_df)
 
-# if args.do_predict:
-#
-#    config = RobertaConfig.from_pretrained(
-#        args.model_name_or_path,
-#        cache_dir=args.cache_dir if args.cache_dir else None,
-#    )
-#    tokenizer = AutoTokenizer.from_pretrained(
-#        output_dir,
-#        do_lower_case=args.do_lower_case)
-#
-#    testing_set = CustomDataset(test_df, tokenizer, MAX_LEN)
-#
-#    test_params = {'batch_size': VALID_BATCH_SIZE,
-#                   'shuffle': False,
-#                   'num_workers': 10
-#                   }
-#
-#    testing_loader = DataLoader(testing_set, **test_params)
-#    model = ViTForImageClassification(config)
-#    model.load_state_dict(torch.load(os.path.join(output_dir, 'model.pth')))
-#    model.to(args.device)
-#    if args.n_gpu > 1:
-#        model = torch.nn.DataParallel(model)
-#    evaluation(model, 'final', None, None)
+    # if args.do_predict:
+    #
+    #    config = RobertaConfig.from_pretrained(
+    #        args.model_name_or_path,
+    #        cache_dir=args.cache_dir if args.cache_dir else None,
+    #    )
+    #    tokenizer = AutoTokenizer.from_pretrained(
+    #        output_dir,
+    #        do_lower_case=args.do_lower_case)
+    #
+    #    testing_set = CustomDataset(test_df, tokenizer, MAX_LEN)
+    #
+    #    test_params = {'batch_size': VALID_BATCH_SIZE,
+    #                   'shuffle': False,
+    #                   'num_workers': 10
+    #                   }
+    #
+    #    testing_loader = DataLoader(testing_set, **test_params)
+    #    model = ViTForImageClassification(config)
+    #    model.load_state_dict(torch.load(os.path.join(output_dir, 'model.pth')))
+    #    model.to(args.device)
+    #    if args.n_gpu > 1:
+    #        model = torch.nn.DataParallel(model)
+    #    evaluation(model, 'final', None, None)
 
-# for epoch in range(EPOCHS):
-#    import pdb;pdb.set_trace()
+    # for epoch in range(EPOCHS):
+    #    import pdb;pdb.set_trace()
