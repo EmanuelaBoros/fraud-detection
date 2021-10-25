@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # -*- coding: utf-8 -*-
+from sadice import SelfAdjDiceLoss
 from torch import nn
 from transformers import (XLMRobertaTokenizer, XLMRobertaModel, BertConfig,
                           get_linear_schedule_with_warmup, BertPreTrainedModel,
@@ -9,7 +10,7 @@ from transformers import (XLMRobertaTokenizer, XLMRobertaModel, BertConfig,
                           LayoutLMv2Model, LayoutLMv2Config,
                           AutoTokenizer, AutoConfig)
 import re
-from transformers import (ViTConfig, LayoutLMv2FeatureExtractor, 
+from transformers import (ViTConfig, LayoutLMv2FeatureExtractor,
                           LayoutLMv2TokenizerFast, LayoutLMv2Processor)
 from models import LayoutLMvForSequenceClassification
 from models import ImageFeatureExtractor, CustomDataset
@@ -18,7 +19,7 @@ import os
 from tqdm import tqdm
 import argparse
 import json
-from torch.utils.data import (Dataset, DataLoader, 
+from torch.utils.data import (Dataset, DataLoader,
                               RandomSampler, SequentialSampler)
 import torch
 import transformers
@@ -172,26 +173,6 @@ test_df = pd.read_csv(test_file, sep='\t')
 
 print(train_df.head())
 
-
-def text_cleaner(text):
-    from nltk.corpus import stopwords
-    stopwords = stopwords.words('english')
-
-    text = re.sub(r"@\w*", " ", str(text)).strip()  # removing username
-    text = re.sub(r'https?://[A-Za-z0-9./]+', " ",
-                  str(text)).strip()  # removing links
-    text = re.sub(r'[^a-zA-Z]', " ", str(text)).strip()  # removing sp_char
-    tw = []
-
-    for text in text.split():
-        if text not in stopwords:
-            if not tw.startwith('@') and tw != 'RT':
-                tw.append(text)
-#    print( " ".join(tw))
-    tw = re.sub(r"\s+", '-', ' '.join(tw))
-    return tw
-
-
 print("TRAIN Dataset: {}".format(train_df.shape))
 print("TEST Dataset: {}".format(test_df.shape))
 
@@ -254,11 +235,11 @@ def evaluation(model, epoch):
                     nn.Softmax(
                         dim=1)(logits), -1).cpu().detach().numpy().tolist())
             print(nn.Softmax(
-                        dim=1)(logits))
+                dim=1)(logits))
             fin_targets_priorities.extend(
                 targets.cpu().detach().numpy().tolist())
             print(targets)
-            print('-'*30)
+            print('-' * 30)
 
     accuracy = metrics.accuracy_score(
         fin_targets_priorities,
@@ -282,11 +263,11 @@ def evaluation(model, epoch):
 
     return fin_targets_priorities, fin_outputs_priorities
 
-from sadice import SelfAdjDiceLoss
 
 criterion = SelfAdjDiceLoss()
 
-def train(model, optimizer, scheduler, epoch):
+
+def train(model, optimizer, scheduler, epoch, tokenizer_text, processor):
     model.train()
 
     for step, data in tqdm(enumerate(training_loader),
@@ -326,7 +307,7 @@ def train(model, optimizer, scheduler, epoch):
 
 #        import pdb;pdb.set_trace()
         loss = criterion(logits, targets.to(torch.int64))
-        
+
 #        loss = torch.nn.MSELoss()(logits.view(-1), targets)
 #        loss = loss_fn(torch.argmax(nn.Softmax(dim=1)(logits), -1).float(), targets)
 #        print(loss)
@@ -336,29 +317,34 @@ def train(model, optimizer, scheduler, epoch):
             evaluation(model, "train_step{}_epoch{}".format(step, epoch))
             print(f'Epoch: {epoch}, Loss:  {loss.item()}')
 #
-#        if step % args.save_steps == 0:
-#            model_to_save = (
-#                model.module if hasattr(model, "module") else model
-#            )  # Take care of distributed/parallel training
-# model_to_save.save_pretrained(output_dir)
-#
-#            torch.save(model_to_save.state_dict(), os.path.join(output_dir, 'model.pth'))
-#
-#            tokenizer.save_pretrained(output_dir)
-#            torch.save(
-#                args, os.path.join(
-#                    output_dir, "training_args.bin"))
-#            torch.save(
-#                model.state_dict(), os.path.join(
-#                    output_dir, "model.pt"))
-#            torch.save(
-#                optimizer.state_dict(), os.path.join(
-#                    output_dir, "optimizer.pt"))
-#            torch.save(
-#                scheduler.state_dict(), os.path.join(
-#                    output_dir, "scheduler.pt"))
-#            print(
-#                "Saving optimizer and scheduler states to %s", output_dir)
+        if step % args.save_steps == 0:
+            model_to_save = (
+                model.module if hasattr(model, "module") else model
+            )  # Take care of distributed/parallel training
+
+            torch.save(
+                model_to_save.state_dict(),
+                os.path.join(
+                    output_dir,
+                    'model.pth'))
+
+            tokenizer_text.save_pretrained(output_dir)
+            processor.save_pretrained(output_dir)
+
+            torch.save(
+                args, os.path.join(
+                    output_dir, "training_args.bin"))
+            torch.save(
+                model.state_dict(), os.path.join(
+                    output_dir, "model.pt"))
+            torch.save(
+                optimizer.state_dict(), os.path.join(
+                    output_dir, "optimizer.pt"))
+            torch.save(
+                scheduler.state_dict(), os.path.join(
+                    output_dir, "scheduler.pt"))
+            print(
+                "Saving optimizer and scheduler states to %s", output_dir)
 
         model.zero_grad()
         loss.backward()
@@ -396,11 +382,6 @@ if args.do_train:
     training_loader = DataLoader(training_set, **train_params)
     testing_loader = DataLoader(testing_set, **test_params)
 
-
-#    config = RobertaConfig.from_pretrained(args.model_name_or_path,
-#        cache_dir=args.cache_dir if args.cache_dir else None,
-#    )
-
 #    model = ViTForImageClassification.from_pretrained('google/vit-base-patch16-224')
 #    config_image = ViTConfig.from_pretrained('google/vit-base-patch16-224')
     config_image = LayoutLMv2Config.from_pretrained(
@@ -408,12 +389,6 @@ if args.do_train:
     config_text = AutoConfig.from_pretrained(args.model_name_or_path)
 #    model = TextImageClassification(config_image, config, args)
     model = LayoutLMvForSequenceClassification(config_image, config_text, args)
-#    model = BERTClass.from_pretrained(
-#        args.model_name_or_path,
-#        from_tf=bool(".ckpt" in args.model_name_or_path),
-#        config=config,
-#        cache_dir=args.cache_dir if args.cache_dir else None,
-#    )
 
     model.to(device)
     if args.n_gpu > 1:
@@ -433,7 +408,7 @@ if args.do_train:
         training_loader) // args.gradient_accumulation_steps * args.num_train_epochs
 #
     optimizer = torch.optim.AdamW(
-        optimizer_grouped_parameters,
+        #        optimizer_grouped_parameters,
         lr=args.learning_rate,
         eps=args.adam_epsilon,
         betas=(
@@ -452,12 +427,11 @@ if args.do_train:
 #            num_training_steps=t_total,
 #            num_warmup_steps=args.warmup_steps)
 
-
     for epoch in range(int(args.num_train_epochs)):
-        train(model, optimizer, scheduler, epoch)
+        train(model, optimizer, scheduler, epoch, tokenizer_text, processor)
         _, _ = evaluation(model, epoch)
 
-#if args.do_predict:
+# if args.do_predict:
 #
 #    config = RobertaConfig.from_pretrained(
 #        args.model_name_or_path,

@@ -6,8 +6,10 @@ from transformers import (AutoTokenizer, XLMRobertaModel, BertConfig,
 from transformers import ViTPreTrainedModel, ViTModel
 from torch import nn
 from torch.nn import CrossEntropyLoss, MSELoss
-from transformers.modeling_outputs import (BaseModelOutput, BaseModelOutputWithPooling,
-                                           SequenceClassifierOutput)
+from transformers.modeling_outputs import (
+    BaseModelOutput,
+    BaseModelOutputWithPooling,
+    SequenceClassifierOutput)
 from typing import List, Optional, Union
 
 import numpy as np
@@ -15,17 +17,21 @@ from PIL import Image
 
 from transformers.feature_extraction_utils import BatchFeature, FeatureExtractionMixin
 from transformers.file_utils import TensorType
-from transformers.image_utils import (IMAGENET_STANDARD_MEAN, IMAGENET_STANDARD_STD, 
-                                      ImageFeatureExtractionMixin, is_torch_tensor)
+from transformers.image_utils import (
+    IMAGENET_STANDARD_MEAN,
+    IMAGENET_STANDARD_STD,
+    ImageFeatureExtractionMixin,
+    is_torch_tensor)
 from transformers.utils import logging
 import torch
 from torch.utils.data import Dataset
-from transformers import (LayoutLMv2FeatureExtractor, LayoutLMv2TokenizerFast, 
+from transformers import (LayoutLMv2FeatureExtractor, LayoutLMv2TokenizerFast,
                           LayoutLMv2Processor, AutoModel)
 import spacy
-from spacy.lang.fr.examples import sentences 
+from spacy.lang.fr.examples import sentences
 
 nlp = spacy.load("en_core_web_sm")
+
 
 class CustomDataset(Dataset):
 
@@ -37,7 +43,8 @@ class CustomDataset(Dataset):
         self.targets = self.data.label
 
         self.max_len = max_len
-        self.image_feature_extractor = image_feature_extractor # apply_ocr is set to True by default
+        # apply_ocr is set to True by default
+        self.image_feature_extractor = image_feature_extractor
 
     def __len__(self):
         return len(self.text)
@@ -50,14 +57,14 @@ class CustomDataset(Dataset):
 #        image_path = Image.open('data/forged/3.jpg')
         image_path = Image.open(self.image[index])
 #        import pdb;pdb.set_trace()
-        doc = nlp(text)
+#        doc = nlp(text)
 #        for token in doc:
 #            print(token.text, token.pos_, token.dep_)
-        text = ''
-        for ent in doc.ents:
+#        text = ''
+#        for ent in doc.ents:
 #            print(ent.text, '-', ent.label_)
-            text += ent.text + ' [' + ent.label_ + '] ' 
-        
+#            text += ent.text + ' [' + ent.label_ + '] '
+
 #        print(text)
         inputs = self.tokenizer.encode_plus(
             text,
@@ -73,29 +80,14 @@ class CustomDataset(Dataset):
         token_type_ids = inputs["token_type_ids"]
 
 #        input_image = self.image_feature_extractor(images=image_path, return_tensors="pt", max_length=28,
-# padding='max_length', truncation=True)
+        # padding='max_length', truncation=True)
         input_image = self.image_feature_extractor(
             images=image_path,
             return_tensors="pt",
             max_length=32,
             padding='max_length',
             truncation=True)
-        
-#        import pdb;pdb.set_trace() #print(encoding.keys())
-#        return {
-#            'ids': torch.tensor(ids, dtype=torch.long),
-#            'mask': torch.tensor(mask, dtype=torch.long),
-#            'token_type_ids': torch.tensor(token_type_ids, dtype=torch.long),
-#            'targets': torch.tensor(self.targets[index], dtype=torch.float),
-#            'pixel_values': input_image.pixel_values.squeeze()
-#        }
 
-#        dict_keys(['input_ids', 'token_type_ids', 'attention_mask', 'bbox', 'image'])
-#        print(input_image.input_ids.shape)
-#        print(input_image.token_type_ids.shape)
-#        print(input_image.attention_mask.shape)
-#        print(input_image.bbox.shape)
-#        print(input_image.image.shape)
         return {
             'ids_text': torch.tensor(
                 ids,
@@ -114,14 +106,6 @@ class CustomDataset(Dataset):
                 self.targets[index],
                 dtype=torch.float),
             'image': input_image.image.squeeze()}
-#            'input_ids': input_image.input_ids.squeeze(),
-#            'token_type_ids': input_image.token_type_ids.squeeze(),
-#            'attention_mask': input_image.attention_mask.squeeze(),
-#            'bbox': input_image.bbox.squeeze(),
-#            'targets': torch.tensor(
-#                self.targets[index],
-#                dtype=torch.float),
-#            'image': input_image.image.squeeze()}
 
 
 class ImageFeatureExtractor(
@@ -280,7 +264,7 @@ class BERTClass(torch.nn.Module):
             attention_mask=mask,
             token_type_ids=token_type_ids)
 
-        _, bert_outputs = element[0], element[1]
+        bert_outputs = element[1]
 
         output = self.dropout(bert_outputs)
 
@@ -299,7 +283,7 @@ class TextImageClassification(torch.nn.Module):
 #        config_image = ViTModel.from_pretrained('google/vit-base-patch16-224')
         self.vit = ViTModel.from_pretrained('google/vit-base-patch16-224')
 
-        self.layoutlmv2 = LayoutLMv2Model(config)
+        self.layoutlmv2 = LayoutLMv2Model(config_image)
 
         config_text = LayoutLMv2Config.from_pretrained(args.model_name_or_path)
         self.bert = LayoutLMv2Model.from_pretrained(args.model_name_or_path,
@@ -377,13 +361,10 @@ class TextImageClassification(torch.nn.Module):
             attention_mask=mask,
             token_type_ids=token_type_ids)
 
-        _, bert_outputs = element[0], element[1]
+        bert_outputs = element[1]
 
-        output = self.dropout(bert_outputs)
+        bert_outputs = self.dropout(bert_outputs)
 
-#        logits_text = self.linear(output)
-
-#        import pdb;pdb.set_trace()
         outputs = self.vit(pixel_values,
                            head_mask=head_mask,
                            output_attentions=output_attentions,
@@ -399,30 +380,7 @@ class TextImageClassification(torch.nn.Module):
 
         logits = self.linear(all_features)
 
-#        logits_image = self.classifier(sequence_output[:, 0, :])
-
         return logits
-#        import pdb;pdb.set_trace()
-#        loss = None
-#        if labels is not None:
-#            if self.num_labels == 1:
-#                #  We are doing regression
-#                loss_fct = MSELoss()
-#                loss = loss_fct(logits.view(-1), labels.view(-1))
-#            else:
-#                loss_fct = CrossEntropyLoss()
-#                loss = loss_fct(logits_image.view(-1, self.num_labels), labels.view(-1))
-#
-#        if not return_dict:
-#            output = (logits_image,) + outputs[2:]
-#            return ((loss,) + output) if loss is not None else output
-#
-#        return SequenceClassifierOutput(
-#            loss=loss,
-#            logits=logits_image,
-#            hidden_states=outputs.hidden_states,
-#            attentions=outputs.attentions,
-#        )
 
 
 #from transformers import LayoutLMv2LayerNorm
@@ -437,19 +395,17 @@ class LayoutLMvForSequenceClassification(torch.nn.Module):
 
         self.config = config_image
 
-#        self.num_labels = config.num_labels
-
         self.num_labels = 2
 
         self.bert = AutoModel.from_pretrained(args.model_name_or_path,
                                               config=config_text)
 
         self.layoutlmv2 = LayoutLMv2Model.from_pretrained(
-            'microsoft/layoutlmv2-base-uncased')  # , config)
+            'microsoft/layoutlmv2-base-uncased')
 
         self.dropout = nn.Dropout(config_text.hidden_dropout_prob)
-#        self.classifier = nn.Linear(config_text.hidden_size * 3, self.num_labels)
-        self.classifier = nn.Linear(4 * config_text.hidden_size, self.num_labels)
+        self.classifier = nn.Linear(
+            4 * config_text.hidden_size, self.num_labels)
 
         self.init_weights(self.layoutlmv2)
 
@@ -519,8 +475,6 @@ class LayoutLMvForSequenceClassification(torch.nn.Module):
             >>> logits = outputs.logits
         """
 
-#        return_dict = return_dict if return_dict is not None else self.config.use_return_dict
-
         if input_ids is not None and inputs_embeds is not None:
             raise ValueError(
                 "You cannot specify both input_ids and inputs_embeds at the same time")
@@ -539,13 +493,13 @@ class LayoutLMvForSequenceClassification(torch.nn.Module):
             attention_mask=attention_mask_text,
             token_type_ids=token_type_ids_text)
 
-#        _, bert_outputs = element[0], element[1]
         bert_outputs = element[1]
 
         bert_outputs = self.dropout(bert_outputs)
 
         visual_shape = list(input_shape)
-        visual_shape[1] = self.config.image_feature_pool_shape[0] * self.config.image_feature_pool_shape[1]
+        visual_shape[1] = self.config.image_feature_pool_shape[0] * \
+            self.config.image_feature_pool_shape[1]
         visual_shape = torch.Size(visual_shape)
         final_shape = list(input_shape)
         final_shape[1] += visual_shape[1]
@@ -555,9 +509,13 @@ class LayoutLMvForSequenceClassification(torch.nn.Module):
             self.config.image_feature_pool_shape, bbox, device, final_shape
         )
 
-        visual_position_ids = torch.arange(0, visual_shape[1], dtype=torch.long, device=device).repeat(
-            input_shape[0], 1
-        )
+        visual_position_ids = torch.arange(
+            0,
+            visual_shape[1],
+            dtype=torch.long,
+            device=device).repeat(
+            input_shape[0],
+            1)
 
         initial_image_embeddings = self.layoutlmv2._calc_img_embeddings(
             image=image,
@@ -584,7 +542,8 @@ class LayoutLMvForSequenceClassification(torch.nn.Module):
             input_shape = inputs_embeds.size()[:-1]
 
         seq_length = input_shape[1]
-        sequence_output, final_image_embeddings = outputs[0][:, :seq_length], outputs[0][:, seq_length:]
+        sequence_output, final_image_embeddings = outputs[0][:,
+                                                             :seq_length], outputs[0][:, seq_length:]
 
         cls_final_output = sequence_output[:, 0, :]
 
@@ -592,39 +551,13 @@ class LayoutLMvForSequenceClassification(torch.nn.Module):
         pooled_initial_image_embeddings = initial_image_embeddings.mean(dim=1)
         pooled_final_image_embeddings = final_image_embeddings.mean(dim=1)
         # concatenate with cls_final_output
-        sequence_output = torch.cat(
-            [cls_final_output, pooled_initial_image_embeddings, pooled_final_image_embeddings, bert_outputs], dim=1
-        )
+        sequence_output = torch.cat([cls_final_output,
+                                     pooled_initial_image_embeddings,
+                                     pooled_final_image_embeddings,
+                                     bert_outputs],
+                                    dim=1)
         sequence_output = self.dropout(sequence_output)
-        
-#        import pdb;pdb.set_trace()
-#        all_features = torch.cat(
-#            [sequence_output[:, 0, :], bert_outputs], dim=1)
 
         logits = self.classifier(sequence_output)
-        
-#        logits = self.classifier(sequence_output)
-
-#        logits = self.classifier(output)
 
         return logits
-#        loss = None
-#        if labels is not None:
-#            if self.num_labels == 1:
-#                #  We are doing regression
-#                loss_fct = MSELoss()
-#                loss = loss_fct(logits.view(-1), labels.view(-1))
-#            else:
-#                loss_fct = CrossEntropyLoss()
-#                loss = loss_fct(logits.view(-1, self.num_labels), labels.view(-1))
-#
-#        if not return_dict:
-#            output = (logits,) + outputs[2:]
-#            return ((loss,) + output) if loss is not None else output
-#
-#        return SequenceClassifierOutput(
-#            loss=loss,
-#            logits=logits,
-#            hidden_states=outputs.hidden_states,
-#            attentions=outputs.attentions,
-#        )
