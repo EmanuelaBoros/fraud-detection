@@ -1,141 +1,499 @@
-image	text	label
-data/images/10.jpg	data/txt/10.txt	0
-data/images/15.jpg	data/txt/15.txt	0
-data/images/16.jpg	data/txt/16.txt	0
-data/images/17.jpg	data/txt/17.txt	0
-data/images/100.jpg	data/txt/100.txt	0
-data/images/101.jpg	data/txt/101.txt	0
-data/images/104.jpg	data/txt/104.txt	0
-data/images/106.jpg	data/txt/106.txt	0
-data/images/109.jpg	data/txt/109.txt	0
-data/forged/112.jpg	data/forgedtxt/112.txt	1
-data/images/113.jpg	data/txt/113.txt	0
-data/images/118.jpg	data/txt/118.txt	0
-data/images/127.jpg	data/txt/127.txt	0
-data/images/129.jpg	data/txt/129.txt	0
-data/images/130.jpg	data/txt/130.txt	0
-data/images/132.jpg	data/txt/132.txt	0
-data/images/138.jpg	data/txt/138.txt	0
-data/images/142.jpg	data/txt/142.txt	0
-data/images/143.jpg	data/txt/143.txt	0
-data/forged/146.jpg	data/forgedtxt/146.txt	1
-data/images/148.jpg	data/txt/148.txt	0
-data/images/149.jpg	data/txt/149.txt	0
-data/images/150.jpg	data/txt/150.txt	0
-data/images/152.jpg	data/txt/152.txt	0
-data/images/153.jpg	data/txt/153.txt	0
-data/images/154.jpg	data/txt/154.txt	0
-data/images/161.jpg	data/txt/161.txt	0
-data/images/162.jpg	data/txt/162.txt	0
-data/forged/164.jpg	data/forgedtxt/164.txt	1
-data/forged/168.jpg	data/forgedtxt/168.txt	1
-data/images/169.jpg	data/txt/169.txt	0
-data/images/172.jpg	data/txt/172.txt	0
-data/images/176.jpg	data/txt/176.txt	0
-data/images/177.jpg	data/txt/177.txt	0
-data/images/181.jpg	data/txt/181.txt	0
-data/images/184.jpg	data/txt/184.txt	0
-data/images/185.jpg	data/txt/185.txt	0
-data/forged/240.jpg	data/forgedtxt/240.txt	1
-data/forged/257.jpg	data/forgedtxt/257.txt	1
-data/forged/321.jpg	data/forgedtxt/321.txt	1
-data/forged/373.jpg	data/forgedtxt/373.txt	1
-data/forged/393.jpg	data/forgedtxt/393.txt	1
-data/forged/467.jpg	data/forgedtxt/467.txt	1
-data/forged/468.jpg	data/forgedtxt/468.txt	1
-data/forged/534.jpg	data/forgedtxt/534.txt	1
-data/forged/547.jpg	data/forgedtxt/547.txt	1
-data/forged/579.jpg	data/forgedtxt/579.txt	1
-data/forged/582.jpg	data/forgedtxt/582.txt	1
-data/forged/600.jpg	data/forgedtxt/600.txt	1
-data/forged/640.jpg	data/forgedtxt/640.txt	1
-data/forged/656.jpg	data/forgedtxt/656.txt	1
-data/forged/662.jpg	data/forgedtxt/662.txt	1
-data/forged/821.jpg	data/forgedtxt/821.txt	1
-data/forged/870.jpg	data/forgedtxt/870.txt	1
-data/forged/874.jpg	data/forgedtxt/874.txt	1
-data/forged/909.jpg	data/forgedtxt/909.txt	1
-data/forged/965.jpg	data/forgedtxt/965.txt	1
-data/images/1012.jpg	data/txt/1012.txt	0
-data/images/1025.jpg	data/txt/1025.txt	0
-data/images/1041.jpg	data/txt/1041.txt	0
-data/images/1043.jpg	data/txt/1043.txt	0
-data/images/1064.jpg	data/txt/1064.txt	0
-data/images/1096.jpg	data/txt/1096.txt	0
-data/images/1097.jpg	data/txt/1097.txt	0
-data/images/1109.jpg	data/txt/1109.txt	0
-data/images/1117.jpg	data/txt/1117.txt	0
-data/images/1122.jpg	data/txt/1122.txt	0
-data/forged/1133.jpg	data/forgedtxt/1133.txt	1
-data/images/1140.jpg	data/txt/1140.txt	0
-data/images/1143.jpg	data/txt/1143.txt	0
-data/images/1151.jpg	data/txt/1151.txt	0
-data/images/1163.jpg	data/txt/1163.txt	0
-data/images/1195.jpg	data/txt/1195.txt	0
-data/images/1205.jpg	data/txt/1205.txt	0
-data/forged/1214.jpg	data/forgedtxt/1214.txt	1
-data/images/1216.jpg	data/txt/1216.txt	0
-data/images/1224.jpg	data/txt/1224.txt	0
-data/images/1236.jpg	data/txt/1236.txt	0
-data/images/1249.jpg	data/txt/1249.txt	0
-data/images/1256.jpg	data/txt/1256.txt	0
-data/forged/1271.jpg	data/forgedtxt/1271.txt	1
-data/images/1287.jpg	data/txt/1287.txt	0
-data/images/1317.jpg	data/txt/1317.txt	0
-data/images/1327.jpg	data/txt/1327.txt	0
-data/images/1349.jpg	data/txt/1349.txt	0
-data/images/1372.jpg	data/txt/1372.txt	0
-data/images/1374.jpg	data/txt/1374.txt	0
-data/images/1376.jpg	data/txt/1376.txt	0
-data/images/1383.jpg	data/txt/1383.txt	0
-data/images/1384.jpg	data/txt/1384.txt	0
-data/images/1386.jpg	data/txt/1386.txt	0
-data/images/1400.jpg	data/txt/1400.txt	0
-data/images/1403.jpg	data/txt/1403.txt	0
-data/images/1417.jpg	data/txt/1417.txt	0
-data/images/1432.jpg	data/txt/1432.txt	0
-data/images/1434.jpg	data/txt/1434.txt	0
-data/images/1442.jpg	data/txt/1442.txt	0
-data/forged/1453.jpg	data/forgedtxt/1453.txt	1
-data/images/1459.jpg	data/txt/1459.txt	0
-data/images/1462.jpg	data/txt/1462.txt	0
-data/images/1468.jpg	data/txt/1468.txt	0
-data/images/1474.jpg	data/txt/1474.txt	0
-data/images/1486.jpg	data/txt/1486.txt	0
-data/images/1500.jpg	data/txt/1500.txt	0
-data/images/1501.jpg	data/txt/1501.txt	0
-data/images/1530.jpg	data/txt/1530.txt	0
-data/images/1533.jpg	data/txt/1533.txt	0
-data/images/1539.jpg	data/txt/1539.txt	0
-data/images/1540.jpg	data/txt/1540.txt	0
-data/images/1543.jpg	data/txt/1543.txt	0
-data/images/1546.jpg	data/txt/1546.txt	0
-data/images/1557.jpg	data/txt/1557.txt	0
-data/images/1565.jpg	data/txt/1565.txt	0
-data/images/1567.jpg	data/txt/1567.txt	0
-data/images/1597.jpg	data/txt/1597.txt	0
-data/images/1607.jpg	data/txt/1607.txt	0
-data/images/1610.jpg	data/txt/1610.txt	0
-data/images/1623.jpg	data/txt/1623.txt	0
-data/images/1627.jpg	data/txt/1627.txt	0
-data/images/1657.jpg	data/txt/1657.txt	0
-data/images/1662.jpg	data/txt/1662.txt	0
-data/forged/1666.jpg	data/forgedtxt/1666.txt	1
-data/images/1676.jpg	data/txt/1676.txt	0
-data/images/1690.jpg	data/txt/1690.txt	0
-data/images/1697.jpg	data/txt/1697.txt	0
-data/images/1698.jpg	data/txt/1698.txt	0
-data/images/1699.jpg	data/txt/1699.txt	0
-data/images/1712.jpg	data/txt/1712.txt	0
-data/images/1720.jpg	data/txt/1720.txt	0
-data/images/1728.jpg	data/txt/1728.txt	0
-data/images/1731.jpg	data/txt/1731.txt	0
-data/images/1734.jpg	data/txt/1734.txt	0
-data/forged/1738.jpg	data/forgedtxt/1738.txt	1
-data/images/1751.jpg	data/txt/1751.txt	0
-data/images/1780.jpg	data/txt/1780.txt	0
-data/images/1795.jpg	data/txt/1795.txt	0
-data/images/1815.jpg	data/txt/1815.txt	0
-data/images/1829.jpg	data/txt/1829.txt	0
-data/images/1837.jpg	data/txt/1837.txt	0
-data/images/1840.jpg	data/txt/1840.txt	0
+image	text	label	string_label
+data/receipts_corpus/images/4.jpg	data/receipts_corpus/txt/4.txt	0	Normal
+data/receipts_corpus/images/5.jpg	data/receipts_corpus/txt/5.txt	0	Normal
+data/receipts_corpus/images/6.jpg	data/receipts_corpus/txt/6.txt	0	Normal
+data/receipts_corpus/images/9.jpg	data/receipts_corpus/txt/9.txt	0	Normal
+data/receipts_corpus/images/10.jpg	data/receipts_corpus/txt/10.txt	0	Normal
+data/receipts_corpus/images/15.jpg	data/receipts_corpus/txt/15.txt	0	Normal
+data/receipts_corpus/images/16.jpg	data/receipts_corpus/txt/16.txt	0	Normal
+data/receipts_corpus/images/17.jpg	data/receipts_corpus/txt/17.txt	0	Normal
+data/receipts_corpus/images/19.jpg	data/receipts_corpus/txt/19.txt	0	Normal
+data/receipts_corpus/images/23.jpg	data/receipts_corpus/txt/23.txt	0	Normal
+data/receipts_corpus/images/28.jpg	data/receipts_corpus/txt/28.txt	0	Normal
+data/receipts_corpus/images/29.jpg	data/receipts_corpus/txt/29.txt	0	Normal
+data/receipts_corpus/images/30.jpg	data/receipts_corpus/txt/30.txt	0	Normal
+data/receipts_corpus/images/31.jpg	data/receipts_corpus/txt/31.txt	0	Normal
+data/receipts_corpus/images/32.jpg	data/receipts_corpus/txt/32.txt	0	Normal
+data/receipts_corpus/images/34.jpg	data/receipts_corpus/txt/34.txt	0	Normal
+data/receipts_corpus/images/35.jpg	data/receipts_corpus/txt/35.txt	0	Normal
+data/receipts_corpus/images/36.jpg	data/receipts_corpus/txt/36.txt	0	Normal
+data/receipts_corpus/images/43.jpg	data/receipts_corpus/txt/43.txt	0	Normal
+data/receipts_corpus/images/44.jpg	data/receipts_corpus/txt/44.txt	0	Normal
+data/receipts_corpus/images/48.jpg	data/receipts_corpus/txt/48.txt	0	Normal
+data/receipts_corpus/images/50.jpg	data/receipts_corpus/txt/50.txt	0	Normal
+data/receipts_corpus/images/55.jpg	data/receipts_corpus/txt/55.txt	0	Normal
+data/receipts_corpus/images/56.jpg	data/receipts_corpus/txt/56.txt	0	Normal
+data/receipts_corpus/images/62.jpg	data/receipts_corpus/txt/62.txt	0	Normal
+data/receipts_corpus/images/63.jpg	data/receipts_corpus/txt/63.txt	0	Normal
+data/receipts_corpus/images/65.jpg	data/receipts_corpus/txt/65.txt	0	Normal
+data/receipts_corpus/images/66.jpg	data/receipts_corpus/txt/66.txt	0	Normal
+data/receipts_corpus/images/67.jpg	data/receipts_corpus/txt/67.txt	0	Normal
+data/receipts_corpus/images/69.jpg	data/receipts_corpus/txt/69.txt	0	Normal
+data/receipts_corpus/images/70.jpg	data/receipts_corpus/txt/70.txt	0	Normal
+data/receipts_corpus/images/71.jpg	data/receipts_corpus/txt/71.txt	0	Normal
+data/receipts_corpus/images/73.jpg	data/receipts_corpus/txt/73.txt	0	Normal
+data/receipts_corpus/images/81.jpg	data/receipts_corpus/txt/81.txt	0	Normal
+data/receipts_corpus/images/84.jpg	data/receipts_corpus/txt/84.txt	0	Normal
+data/receipts_corpus/images/86.jpg	data/receipts_corpus/txt/86.txt	0	Normal
+data/receipts_corpus/images/87.jpg	data/receipts_corpus/txt/87.txt	0	Normal
+data/receipts_corpus/images/89.jpg	data/receipts_corpus/txt/89.txt	0	Normal
+data/receipts_corpus/images/91.jpg	data/receipts_corpus/txt/91.txt	0	Normal
+data/receipts_corpus/images/96.jpg	data/receipts_corpus/txt/96.txt	0	Normal
+data/receipts_corpus/images/98.jpg	data/receipts_corpus/txt/98.txt	0	Normal
+data/receipts_corpus/images/100.jpg	data/receipts_corpus/txt/100.txt	0	Normal
+data/receipts_corpus/images/101.jpg	data/receipts_corpus/txt/101.txt	0	Normal
+data/receipts_corpus/images/104.jpg	data/receipts_corpus/txt/104.txt	0	Normal
+data/receipts_corpus/images/106.jpg	data/receipts_corpus/txt/106.txt	0	Normal
+data/receipts_corpus/images/109.jpg	data/receipts_corpus/txt/109.txt	0	Normal
+data/forged/112.jpg	data/forgedtxt/112.txt	1	Fraud
+data/receipts_corpus/images/113.jpg	data/receipts_corpus/txt/113.txt	0	Normal
+data/receipts_corpus/images/118.jpg	data/receipts_corpus/txt/118.txt	0	Normal
+data/receipts_corpus/images/127.jpg	data/receipts_corpus/txt/127.txt	0	Normal
+data/receipts_corpus/images/129.jpg	data/receipts_corpus/txt/129.txt	0	Normal
+data/receipts_corpus/images/130.jpg	data/receipts_corpus/txt/130.txt	0	Normal
+data/receipts_corpus/images/132.jpg	data/receipts_corpus/txt/132.txt	0	Normal
+data/receipts_corpus/images/138.jpg	data/receipts_corpus/txt/138.txt	0	Normal
+data/receipts_corpus/images/142.jpg	data/receipts_corpus/txt/142.txt	0	Normal
+data/receipts_corpus/images/143.jpg	data/receipts_corpus/txt/143.txt	0	Normal
+data/forged/146.jpg	data/forgedtxt/146.txt	1	Fraud
+data/receipts_corpus/images/148.jpg	data/receipts_corpus/txt/148.txt	0	Normal
+data/receipts_corpus/images/149.jpg	data/receipts_corpus/txt/149.txt	0	Normal
+data/receipts_corpus/images/150.jpg	data/receipts_corpus/txt/150.txt	0	Normal
+data/receipts_corpus/images/152.jpg	data/receipts_corpus/txt/152.txt	0	Normal
+data/receipts_corpus/images/153.jpg	data/receipts_corpus/txt/153.txt	0	Normal
+data/receipts_corpus/images/154.jpg	data/receipts_corpus/txt/154.txt	0	Normal
+data/receipts_corpus/images/161.jpg	data/receipts_corpus/txt/161.txt	0	Normal
+data/receipts_corpus/images/162.jpg	data/receipts_corpus/txt/162.txt	0	Normal
+data/forged/164.jpg	data/forgedtxt/164.txt	1	Fraud
+data/forged/168.jpg	data/forgedtxt/168.txt	1	Fraud
+data/receipts_corpus/images/169.jpg	data/receipts_corpus/txt/169.txt	0	Normal
+data/receipts_corpus/images/172.jpg	data/receipts_corpus/txt/172.txt	0	Normal
+data/receipts_corpus/images/176.jpg	data/receipts_corpus/txt/176.txt	0	Normal
+data/receipts_corpus/images/177.jpg	data/receipts_corpus/txt/177.txt	0	Normal
+data/receipts_corpus/images/181.jpg	data/receipts_corpus/txt/181.txt	0	Normal
+data/receipts_corpus/images/184.jpg	data/receipts_corpus/txt/184.txt	0	Normal
+data/receipts_corpus/images/185.jpg	data/receipts_corpus/txt/185.txt	0	Normal
+data/receipts_corpus/images/188.jpg	data/receipts_corpus/txt/188.txt	0	Normal
+data/receipts_corpus/images/189.jpg	data/receipts_corpus/txt/189.txt	0	Normal
+data/receipts_corpus/images/191.jpg	data/receipts_corpus/txt/191.txt	0	Normal
+data/receipts_corpus/images/194.jpg	data/receipts_corpus/txt/194.txt	0	Normal
+data/receipts_corpus/images/197.jpg	data/receipts_corpus/txt/197.txt	0	Normal
+data/receipts_corpus/images/198.jpg	data/receipts_corpus/txt/198.txt	0	Normal
+data/receipts_corpus/images/201.jpg	data/receipts_corpus/txt/201.txt	0	Normal
+data/receipts_corpus/images/204.jpg	data/receipts_corpus/txt/204.txt	0	Normal
+data/receipts_corpus/images/207.jpg	data/receipts_corpus/txt/207.txt	0	Normal
+data/receipts_corpus/images/208.jpg	data/receipts_corpus/txt/208.txt	0	Normal
+data/receipts_corpus/images/210.jpg	data/receipts_corpus/txt/210.txt	0	Normal
+data/receipts_corpus/images/214.jpg	data/receipts_corpus/txt/214.txt	0	Normal
+data/receipts_corpus/images/216.jpg	data/receipts_corpus/txt/216.txt	0	Normal
+data/receipts_corpus/images/219.jpg	data/receipts_corpus/txt/219.txt	0	Normal
+data/receipts_corpus/images/222.jpg	data/receipts_corpus/txt/222.txt	0	Normal
+data/receipts_corpus/images/224.jpg	data/receipts_corpus/txt/224.txt	0	Normal
+data/receipts_corpus/images/228.jpg	data/receipts_corpus/txt/228.txt	0	Normal
+data/receipts_corpus/images/233.jpg	data/receipts_corpus/txt/233.txt	0	Normal
+data/receipts_corpus/images/235.jpg	data/receipts_corpus/txt/235.txt	0	Normal
+data/receipts_corpus/images/236.jpg	data/receipts_corpus/txt/236.txt	0	Normal
+data/receipts_corpus/images/237.jpg	data/receipts_corpus/txt/237.txt	0	Normal
+data/forged/240.jpg	data/forgedtxt/240.txt	1	Fraud
+data/receipts_corpus/images/247.jpg	data/receipts_corpus/txt/247.txt	0	Normal
+data/receipts_corpus/images/248.jpg	data/receipts_corpus/txt/248.txt	0	Normal
+data/receipts_corpus/images/250.jpg	data/receipts_corpus/txt/250.txt	0	Normal
+data/forged/257.jpg	data/forgedtxt/257.txt	1	Fraud
+data/receipts_corpus/images/259.jpg	data/receipts_corpus/txt/259.txt	0	Normal
+data/receipts_corpus/images/267.jpg	data/receipts_corpus/txt/267.txt	0	Normal
+data/receipts_corpus/images/271.jpg	data/receipts_corpus/txt/271.txt	0	Normal
+data/receipts_corpus/images/275.jpg	data/receipts_corpus/txt/275.txt	0	Normal
+data/receipts_corpus/images/276.jpg	data/receipts_corpus/txt/276.txt	0	Normal
+data/receipts_corpus/images/278.jpg	data/receipts_corpus/txt/278.txt	0	Normal
+data/receipts_corpus/images/279.jpg	data/receipts_corpus/txt/279.txt	0	Normal
+data/receipts_corpus/images/280.jpg	data/receipts_corpus/txt/280.txt	0	Normal
+data/receipts_corpus/images/281.jpg	data/receipts_corpus/txt/281.txt	0	Normal
+data/receipts_corpus/images/284.jpg	data/receipts_corpus/txt/284.txt	0	Normal
+data/receipts_corpus/images/285.jpg	data/receipts_corpus/txt/285.txt	0	Normal
+data/receipts_corpus/images/287.jpg	data/receipts_corpus/txt/287.txt	0	Normal
+data/receipts_corpus/images/288.jpg	data/receipts_corpus/txt/288.txt	0	Normal
+data/receipts_corpus/images/289.jpg	data/receipts_corpus/txt/289.txt	0	Normal
+data/receipts_corpus/images/293.jpg	data/receipts_corpus/txt/293.txt	0	Normal
+data/receipts_corpus/images/295.jpg	data/receipts_corpus/txt/295.txt	0	Normal
+data/receipts_corpus/images/302.jpg	data/receipts_corpus/txt/302.txt	0	Normal
+data/receipts_corpus/images/307.jpg	data/receipts_corpus/txt/307.txt	0	Normal
+data/receipts_corpus/images/309.jpg	data/receipts_corpus/txt/309.txt	0	Normal
+data/receipts_corpus/images/310.jpg	data/receipts_corpus/txt/310.txt	0	Normal
+data/receipts_corpus/images/312.jpg	data/receipts_corpus/txt/312.txt	0	Normal
+data/receipts_corpus/images/313.jpg	data/receipts_corpus/txt/313.txt	0	Normal
+data/receipts_corpus/images/314.jpg	data/receipts_corpus/txt/314.txt	0	Normal
+data/receipts_corpus/images/315.jpg	data/receipts_corpus/txt/315.txt	0	Normal
+data/receipts_corpus/images/317.jpg	data/receipts_corpus/txt/317.txt	0	Normal
+data/receipts_corpus/images/319.jpg	data/receipts_corpus/txt/319.txt	0	Normal
+data/forged/321.jpg	data/forgedtxt/321.txt	1	Fraud
+data/receipts_corpus/images/323.jpg	data/receipts_corpus/txt/323.txt	0	Normal
+data/receipts_corpus/images/329.jpg	data/receipts_corpus/txt/329.txt	0	Normal
+data/receipts_corpus/images/336.jpg	data/receipts_corpus/txt/336.txt	0	Normal
+data/receipts_corpus/images/340.jpg	data/receipts_corpus/txt/340.txt	0	Normal
+data/receipts_corpus/images/341.jpg	data/receipts_corpus/txt/341.txt	0	Normal
+data/receipts_corpus/images/345.jpg	data/receipts_corpus/txt/345.txt	0	Normal
+data/receipts_corpus/images/347.jpg	data/receipts_corpus/txt/347.txt	0	Normal
+data/receipts_corpus/images/348.jpg	data/receipts_corpus/txt/348.txt	0	Normal
+data/receipts_corpus/images/357.jpg	data/receipts_corpus/txt/357.txt	0	Normal
+data/receipts_corpus/images/359.jpg	data/receipts_corpus/txt/359.txt	0	Normal
+data/receipts_corpus/images/362.jpg	data/receipts_corpus/txt/362.txt	0	Normal
+data/receipts_corpus/images/363.jpg	data/receipts_corpus/txt/363.txt	0	Normal
+data/receipts_corpus/images/365.jpg	data/receipts_corpus/txt/365.txt	0	Normal
+data/receipts_corpus/images/367.jpg	data/receipts_corpus/txt/367.txt	0	Normal
+data/receipts_corpus/images/369.jpg	data/receipts_corpus/txt/369.txt	0	Normal
+data/receipts_corpus/images/372.jpg	data/receipts_corpus/txt/372.txt	0	Normal
+data/forged/373.jpg	data/forgedtxt/373.txt	1	Fraud
+data/receipts_corpus/images/374.jpg	data/receipts_corpus/txt/374.txt	0	Normal
+data/receipts_corpus/images/375.jpg	data/receipts_corpus/txt/375.txt	0	Normal
+data/receipts_corpus/images/382.jpg	data/receipts_corpus/txt/382.txt	0	Normal
+data/receipts_corpus/images/384.jpg	data/receipts_corpus/txt/384.txt	0	Normal
+data/receipts_corpus/images/391.jpg	data/receipts_corpus/txt/391.txt	0	Normal
+data/forged/393.jpg	data/forgedtxt/393.txt	1	Fraud
+data/receipts_corpus/images/394.jpg	data/receipts_corpus/txt/394.txt	0	Normal
+data/receipts_corpus/images/395.jpg	data/receipts_corpus/txt/395.txt	0	Normal
+data/receipts_corpus/images/397.jpg	data/receipts_corpus/txt/397.txt	0	Normal
+data/receipts_corpus/images/398.jpg	data/receipts_corpus/txt/398.txt	0	Normal
+data/receipts_corpus/images/399.jpg	data/receipts_corpus/txt/399.txt	0	Normal
+data/receipts_corpus/images/402.jpg	data/receipts_corpus/txt/402.txt	0	Normal
+data/receipts_corpus/images/405.jpg	data/receipts_corpus/txt/405.txt	0	Normal
+data/receipts_corpus/images/409.jpg	data/receipts_corpus/txt/409.txt	0	Normal
+data/receipts_corpus/images/413.jpg	data/receipts_corpus/txt/413.txt	0	Normal
+data/receipts_corpus/images/414.jpg	data/receipts_corpus/txt/414.txt	0	Normal
+data/receipts_corpus/images/417.jpg	data/receipts_corpus/txt/417.txt	0	Normal
+data/receipts_corpus/images/419.jpg	data/receipts_corpus/txt/419.txt	0	Normal
+data/receipts_corpus/images/421.jpg	data/receipts_corpus/txt/421.txt	0	Normal
+data/receipts_corpus/images/423.jpg	data/receipts_corpus/txt/423.txt	0	Normal
+data/receipts_corpus/images/424.jpg	data/receipts_corpus/txt/424.txt	0	Normal
+data/receipts_corpus/images/426.jpg	data/receipts_corpus/txt/426.txt	0	Normal
+data/receipts_corpus/images/430.jpg	data/receipts_corpus/txt/430.txt	0	Normal
+data/receipts_corpus/images/432.jpg	data/receipts_corpus/txt/432.txt	0	Normal
+data/receipts_corpus/images/433.jpg	data/receipts_corpus/txt/433.txt	0	Normal
+data/receipts_corpus/images/434.jpg	data/receipts_corpus/txt/434.txt	0	Normal
+data/receipts_corpus/images/435.jpg	data/receipts_corpus/txt/435.txt	0	Normal
+data/receipts_corpus/images/440.jpg	data/receipts_corpus/txt/440.txt	0	Normal
+data/receipts_corpus/images/443.jpg	data/receipts_corpus/txt/443.txt	0	Normal
+data/receipts_corpus/images/444.jpg	data/receipts_corpus/txt/444.txt	0	Normal
+data/receipts_corpus/images/445.jpg	data/receipts_corpus/txt/445.txt	0	Normal
+data/receipts_corpus/images/446.jpg	data/receipts_corpus/txt/446.txt	0	Normal
+data/receipts_corpus/images/455.jpg	data/receipts_corpus/txt/455.txt	0	Normal
+data/receipts_corpus/images/456.jpg	data/receipts_corpus/txt/456.txt	0	Normal
+data/receipts_corpus/images/459.jpg	data/receipts_corpus/txt/459.txt	0	Normal
+data/receipts_corpus/images/461.jpg	data/receipts_corpus/txt/461.txt	0	Normal
+data/receipts_corpus/images/462.jpg	data/receipts_corpus/txt/462.txt	0	Normal
+data/forged/467.jpg	data/forgedtxt/467.txt	1	Fraud
+data/forged/468.jpg	data/forgedtxt/468.txt	1	Fraud
+data/receipts_corpus/images/474.jpg	data/receipts_corpus/txt/474.txt	0	Normal
+data/receipts_corpus/images/475.jpg	data/receipts_corpus/txt/475.txt	0	Normal
+data/receipts_corpus/images/476.jpg	data/receipts_corpus/txt/476.txt	0	Normal
+data/receipts_corpus/images/478.jpg	data/receipts_corpus/txt/478.txt	0	Normal
+data/receipts_corpus/images/480.jpg	data/receipts_corpus/txt/480.txt	0	Normal
+data/receipts_corpus/images/481.jpg	data/receipts_corpus/txt/481.txt	0	Normal
+data/receipts_corpus/images/482.jpg	data/receipts_corpus/txt/482.txt	0	Normal
+data/receipts_corpus/images/483.jpg	data/receipts_corpus/txt/483.txt	0	Normal
+data/receipts_corpus/images/485.jpg	data/receipts_corpus/txt/485.txt	0	Normal
+data/receipts_corpus/images/488.jpg	data/receipts_corpus/txt/488.txt	0	Normal
+data/receipts_corpus/images/489.jpg	data/receipts_corpus/txt/489.txt	0	Normal
+data/receipts_corpus/images/490.jpg	data/receipts_corpus/txt/490.txt	0	Normal
+data/receipts_corpus/images/491.jpg	data/receipts_corpus/txt/491.txt	0	Normal
+data/receipts_corpus/images/492.jpg	data/receipts_corpus/txt/492.txt	0	Normal
+data/receipts_corpus/images/494.jpg	data/receipts_corpus/txt/494.txt	0	Normal
+data/receipts_corpus/images/495.jpg	data/receipts_corpus/txt/495.txt	0	Normal
+data/receipts_corpus/images/498.jpg	data/receipts_corpus/txt/498.txt	0	Normal
+data/receipts_corpus/images/499.jpg	data/receipts_corpus/txt/499.txt	0	Normal
+data/receipts_corpus/images/503.jpg	data/receipts_corpus/txt/503.txt	0	Normal
+data/receipts_corpus/images/504.jpg	data/receipts_corpus/txt/504.txt	0	Normal
+data/receipts_corpus/images/505.jpg	data/receipts_corpus/txt/505.txt	0	Normal
+data/receipts_corpus/images/506.jpg	data/receipts_corpus/txt/506.txt	0	Normal
+data/receipts_corpus/images/509.jpg	data/receipts_corpus/txt/509.txt	0	Normal
+data/receipts_corpus/images/510.jpg	data/receipts_corpus/txt/510.txt	0	Normal
+data/receipts_corpus/images/511.jpg	data/receipts_corpus/txt/511.txt	0	Normal
+data/receipts_corpus/images/513.jpg	data/receipts_corpus/txt/513.txt	0	Normal
+data/receipts_corpus/images/516.jpg	data/receipts_corpus/txt/516.txt	0	Normal
+data/receipts_corpus/images/524.jpg	data/receipts_corpus/txt/524.txt	0	Normal
+data/receipts_corpus/images/525.jpg	data/receipts_corpus/txt/525.txt	0	Normal
+data/receipts_corpus/images/530.jpg	data/receipts_corpus/txt/530.txt	0	Normal
+data/receipts_corpus/images/531.jpg	data/receipts_corpus/txt/531.txt	0	Normal
+data/receipts_corpus/images/532.jpg	data/receipts_corpus/txt/532.txt	0	Normal
+data/forged/534.jpg	data/forgedtxt/534.txt	1	Fraud
+data/receipts_corpus/images/536.jpg	data/receipts_corpus/txt/536.txt	0	Normal
+data/receipts_corpus/images/542.jpg	data/receipts_corpus/txt/542.txt	0	Normal
+data/receipts_corpus/images/543.jpg	data/receipts_corpus/txt/543.txt	0	Normal
+data/receipts_corpus/images/545.jpg	data/receipts_corpus/txt/545.txt	0	Normal
+data/forged/547.jpg	data/forgedtxt/547.txt	1	Fraud
+data/receipts_corpus/images/548.jpg	data/receipts_corpus/txt/548.txt	0	Normal
+data/receipts_corpus/images/549.jpg	data/receipts_corpus/txt/549.txt	0	Normal
+data/receipts_corpus/images/550.jpg	data/receipts_corpus/txt/550.txt	0	Normal
+data/receipts_corpus/images/554.jpg	data/receipts_corpus/txt/554.txt	0	Normal
+data/receipts_corpus/images/559.jpg	data/receipts_corpus/txt/559.txt	0	Normal
+data/receipts_corpus/images/562.jpg	data/receipts_corpus/txt/562.txt	0	Normal
+data/receipts_corpus/images/564.jpg	data/receipts_corpus/txt/564.txt	0	Normal
+data/receipts_corpus/images/566.jpg	data/receipts_corpus/txt/566.txt	0	Normal
+data/receipts_corpus/images/569.jpg	data/receipts_corpus/txt/569.txt	0	Normal
+data/receipts_corpus/images/570.jpg	data/receipts_corpus/txt/570.txt	0	Normal
+data/receipts_corpus/images/571.jpg	data/receipts_corpus/txt/571.txt	0	Normal
+data/receipts_corpus/images/574.jpg	data/receipts_corpus/txt/574.txt	0	Normal
+data/receipts_corpus/images/576.jpg	data/receipts_corpus/txt/576.txt	0	Normal
+data/forged/579.jpg	data/forgedtxt/579.txt	1	Fraud
+data/receipts_corpus/images/580.jpg	data/receipts_corpus/txt/580.txt	0	Normal
+data/forged/582.jpg	data/forgedtxt/582.txt	1	Fraud
+data/receipts_corpus/images/585.jpg	data/receipts_corpus/txt/585.txt	0	Normal
+data/receipts_corpus/images/586.jpg	data/receipts_corpus/txt/586.txt	0	Normal
+data/receipts_corpus/images/587.jpg	data/receipts_corpus/txt/587.txt	0	Normal
+data/receipts_corpus/images/588.jpg	data/receipts_corpus/txt/588.txt	0	Normal
+data/receipts_corpus/images/589.jpg	data/receipts_corpus/txt/589.txt	0	Normal
+data/receipts_corpus/images/591.jpg	data/receipts_corpus/txt/591.txt	0	Normal
+data/receipts_corpus/images/594.jpg	data/receipts_corpus/txt/594.txt	0	Normal
+data/receipts_corpus/images/595.jpg	data/receipts_corpus/txt/595.txt	0	Normal
+data/receipts_corpus/images/596.jpg	data/receipts_corpus/txt/596.txt	0	Normal
+data/receipts_corpus/images/598.jpg	data/receipts_corpus/txt/598.txt	0	Normal
+data/receipts_corpus/images/599.jpg	data/receipts_corpus/txt/599.txt	0	Normal
+data/forged/600.jpg	data/forgedtxt/600.txt	1	Fraud
+data/receipts_corpus/images/603.jpg	data/receipts_corpus/txt/603.txt	0	Normal
+data/receipts_corpus/images/605.jpg	data/receipts_corpus/txt/605.txt	0	Normal
+data/receipts_corpus/images/607.jpg	data/receipts_corpus/txt/607.txt	0	Normal
+data/receipts_corpus/images/610.jpg	data/receipts_corpus/txt/610.txt	0	Normal
+data/receipts_corpus/images/611.jpg	data/receipts_corpus/txt/611.txt	0	Normal
+data/receipts_corpus/images/613.jpg	data/receipts_corpus/txt/613.txt	0	Normal
+data/receipts_corpus/images/614.jpg	data/receipts_corpus/txt/614.txt	0	Normal
+data/receipts_corpus/images/616.jpg	data/receipts_corpus/txt/616.txt	0	Normal
+data/receipts_corpus/images/617.jpg	data/receipts_corpus/txt/617.txt	0	Normal
+data/receipts_corpus/images/619.jpg	data/receipts_corpus/txt/619.txt	0	Normal
+data/receipts_corpus/images/622.jpg	data/receipts_corpus/txt/622.txt	0	Normal
+data/receipts_corpus/images/629.jpg	data/receipts_corpus/txt/629.txt	0	Normal
+data/receipts_corpus/images/630.jpg	data/receipts_corpus/txt/630.txt	0	Normal
+data/receipts_corpus/images/633.jpg	data/receipts_corpus/txt/633.txt	0	Normal
+data/receipts_corpus/images/636.jpg	data/receipts_corpus/txt/636.txt	0	Normal
+data/receipts_corpus/images/637.jpg	data/receipts_corpus/txt/637.txt	0	Normal
+data/receipts_corpus/images/639.jpg	data/receipts_corpus/txt/639.txt	0	Normal
+data/forged/640.jpg	data/forgedtxt/640.txt	1	Fraud
+data/receipts_corpus/images/644.jpg	data/receipts_corpus/txt/644.txt	0	Normal
+data/receipts_corpus/images/647.jpg	data/receipts_corpus/txt/647.txt	0	Normal
+data/receipts_corpus/images/649.jpg	data/receipts_corpus/txt/649.txt	0	Normal
+data/receipts_corpus/images/650.jpg	data/receipts_corpus/txt/650.txt	0	Normal
+data/receipts_corpus/images/652.jpg	data/receipts_corpus/txt/652.txt	0	Normal
+data/receipts_corpus/images/653.jpg	data/receipts_corpus/txt/653.txt	0	Normal
+data/receipts_corpus/images/654.jpg	data/receipts_corpus/txt/654.txt	0	Normal
+data/forged/656.jpg	data/forgedtxt/656.txt	1	Fraud
+data/receipts_corpus/images/660.jpg	data/receipts_corpus/txt/660.txt	0	Normal
+data/forged/662.jpg	data/forgedtxt/662.txt	1	Fraud
+data/receipts_corpus/images/663.jpg	data/receipts_corpus/txt/663.txt	0	Normal
+data/receipts_corpus/images/665.jpg	data/receipts_corpus/txt/665.txt	0	Normal
+data/receipts_corpus/images/666.jpg	data/receipts_corpus/txt/666.txt	0	Normal
+data/receipts_corpus/images/668.jpg	data/receipts_corpus/txt/668.txt	0	Normal
+data/receipts_corpus/images/669.jpg	data/receipts_corpus/txt/669.txt	0	Normal
+data/receipts_corpus/images/676.jpg	data/receipts_corpus/txt/676.txt	0	Normal
+data/receipts_corpus/images/677.jpg	data/receipts_corpus/txt/677.txt	0	Normal
+data/receipts_corpus/images/678.jpg	data/receipts_corpus/txt/678.txt	0	Normal
+data/receipts_corpus/images/681.jpg	data/receipts_corpus/txt/681.txt	0	Normal
+data/receipts_corpus/images/682.jpg	data/receipts_corpus/txt/682.txt	0	Normal
+data/receipts_corpus/images/683.jpg	data/receipts_corpus/txt/683.txt	0	Normal
+data/receipts_corpus/images/685.jpg	data/receipts_corpus/txt/685.txt	0	Normal
+data/receipts_corpus/images/688.jpg	data/receipts_corpus/txt/688.txt	0	Normal
+data/receipts_corpus/images/689.jpg	data/receipts_corpus/txt/689.txt	0	Normal
+data/receipts_corpus/images/690.jpg	data/receipts_corpus/txt/690.txt	0	Normal
+data/receipts_corpus/images/691.jpg	data/receipts_corpus/txt/691.txt	0	Normal
+data/receipts_corpus/images/693.jpg	data/receipts_corpus/txt/693.txt	0	Normal
+data/receipts_corpus/images/695.jpg	data/receipts_corpus/txt/695.txt	0	Normal
+data/receipts_corpus/images/698.jpg	data/receipts_corpus/txt/698.txt	0	Normal
+data/receipts_corpus/images/702.jpg	data/receipts_corpus/txt/702.txt	0	Normal
+data/receipts_corpus/images/703.jpg	data/receipts_corpus/txt/703.txt	0	Normal
+data/receipts_corpus/images/704.jpg	data/receipts_corpus/txt/704.txt	0	Normal
+data/receipts_corpus/images/705.jpg	data/receipts_corpus/txt/705.txt	0	Normal
+data/receipts_corpus/images/707.jpg	data/receipts_corpus/txt/707.txt	0	Normal
+data/receipts_corpus/images/710.jpg	data/receipts_corpus/txt/710.txt	0	Normal
+data/receipts_corpus/images/715.jpg	data/receipts_corpus/txt/715.txt	0	Normal
+data/receipts_corpus/images/718.jpg	data/receipts_corpus/txt/718.txt	0	Normal
+data/receipts_corpus/images/719.jpg	data/receipts_corpus/txt/719.txt	0	Normal
+data/receipts_corpus/images/725.jpg	data/receipts_corpus/txt/725.txt	0	Normal
+data/receipts_corpus/images/726.jpg	data/receipts_corpus/txt/726.txt	0	Normal
+data/receipts_corpus/images/727.jpg	data/receipts_corpus/txt/727.txt	0	Normal
+data/receipts_corpus/images/734.jpg	data/receipts_corpus/txt/734.txt	0	Normal
+data/receipts_corpus/images/735.jpg	data/receipts_corpus/txt/735.txt	0	Normal
+data/receipts_corpus/images/736.jpg	data/receipts_corpus/txt/736.txt	0	Normal
+data/receipts_corpus/images/737.jpg	data/receipts_corpus/txt/737.txt	0	Normal
+data/receipts_corpus/images/738.jpg	data/receipts_corpus/txt/738.txt	0	Normal
+data/receipts_corpus/images/742.jpg	data/receipts_corpus/txt/742.txt	0	Normal
+data/receipts_corpus/images/743.jpg	data/receipts_corpus/txt/743.txt	0	Normal
+data/receipts_corpus/images/744.jpg	data/receipts_corpus/txt/744.txt	0	Normal
+data/receipts_corpus/images/745.jpg	data/receipts_corpus/txt/745.txt	0	Normal
+data/receipts_corpus/images/747.jpg	data/receipts_corpus/txt/747.txt	0	Normal
+data/receipts_corpus/images/750.jpg	data/receipts_corpus/txt/750.txt	0	Normal
+data/receipts_corpus/images/754.jpg	data/receipts_corpus/txt/754.txt	0	Normal
+data/receipts_corpus/images/757.jpg	data/receipts_corpus/txt/757.txt	0	Normal
+data/receipts_corpus/images/758.jpg	data/receipts_corpus/txt/758.txt	0	Normal
+data/receipts_corpus/images/764.jpg	data/receipts_corpus/txt/764.txt	0	Normal
+data/receipts_corpus/images/766.jpg	data/receipts_corpus/txt/766.txt	0	Normal
+data/receipts_corpus/images/768.jpg	data/receipts_corpus/txt/768.txt	0	Normal
+data/receipts_corpus/images/770.jpg	data/receipts_corpus/txt/770.txt	0	Normal
+data/receipts_corpus/images/771.jpg	data/receipts_corpus/txt/771.txt	0	Normal
+data/receipts_corpus/images/772.jpg	data/receipts_corpus/txt/772.txt	0	Normal
+data/receipts_corpus/images/778.jpg	data/receipts_corpus/txt/778.txt	0	Normal
+data/receipts_corpus/images/779.jpg	data/receipts_corpus/txt/779.txt	0	Normal
+data/receipts_corpus/images/781.jpg	data/receipts_corpus/txt/781.txt	0	Normal
+data/receipts_corpus/images/782.jpg	data/receipts_corpus/txt/782.txt	0	Normal
+data/receipts_corpus/images/783.jpg	data/receipts_corpus/txt/783.txt	0	Normal
+data/receipts_corpus/images/784.jpg	data/receipts_corpus/txt/784.txt	0	Normal
+data/receipts_corpus/images/789.jpg	data/receipts_corpus/txt/789.txt	0	Normal
+data/receipts_corpus/images/790.jpg	data/receipts_corpus/txt/790.txt	0	Normal
+data/receipts_corpus/images/791.jpg	data/receipts_corpus/txt/791.txt	0	Normal
+data/receipts_corpus/images/794.jpg	data/receipts_corpus/txt/794.txt	0	Normal
+data/receipts_corpus/images/795.jpg	data/receipts_corpus/txt/795.txt	0	Normal
+data/receipts_corpus/images/802.jpg	data/receipts_corpus/txt/802.txt	0	Normal
+data/receipts_corpus/images/803.jpg	data/receipts_corpus/txt/803.txt	0	Normal
+data/receipts_corpus/images/806.jpg	data/receipts_corpus/txt/806.txt	0	Normal
+data/receipts_corpus/images/808.jpg	data/receipts_corpus/txt/808.txt	0	Normal
+data/receipts_corpus/images/809.jpg	data/receipts_corpus/txt/809.txt	0	Normal
+data/receipts_corpus/images/815.jpg	data/receipts_corpus/txt/815.txt	0	Normal
+data/receipts_corpus/images/819.jpg	data/receipts_corpus/txt/819.txt	0	Normal
+data/forged/821.jpg	data/forgedtxt/821.txt	1	Fraud
+data/receipts_corpus/images/824.jpg	data/receipts_corpus/txt/824.txt	0	Normal
+data/receipts_corpus/images/837.jpg	data/receipts_corpus/txt/837.txt	0	Normal
+data/receipts_corpus/images/838.jpg	data/receipts_corpus/txt/838.txt	0	Normal
+data/receipts_corpus/images/841.jpg	data/receipts_corpus/txt/841.txt	0	Normal
+data/receipts_corpus/images/843.jpg	data/receipts_corpus/txt/843.txt	0	Normal
+data/receipts_corpus/images/845.jpg	data/receipts_corpus/txt/845.txt	0	Normal
+data/receipts_corpus/images/846.jpg	data/receipts_corpus/txt/846.txt	0	Normal
+data/receipts_corpus/images/852.jpg	data/receipts_corpus/txt/852.txt	0	Normal
+data/receipts_corpus/images/854.jpg	data/receipts_corpus/txt/854.txt	0	Normal
+data/receipts_corpus/images/855.jpg	data/receipts_corpus/txt/855.txt	0	Normal
+data/receipts_corpus/images/860.jpg	data/receipts_corpus/txt/860.txt	0	Normal
+data/receipts_corpus/images/863.jpg	data/receipts_corpus/txt/863.txt	0	Normal
+data/receipts_corpus/images/866.jpg	data/receipts_corpus/txt/866.txt	0	Normal
+data/forged/870.jpg	data/forgedtxt/870.txt	1	Fraud
+data/forged/874.jpg	data/forgedtxt/874.txt	1	Fraud
+data/receipts_corpus/images/886.jpg	data/receipts_corpus/txt/886.txt	0	Normal
+data/receipts_corpus/images/897.jpg	data/receipts_corpus/txt/897.txt	0	Normal
+data/receipts_corpus/images/900.jpg	data/receipts_corpus/txt/900.txt	0	Normal
+data/receipts_corpus/images/902.jpg	data/receipts_corpus/txt/902.txt	0	Normal
+data/receipts_corpus/images/905.jpg	data/receipts_corpus/txt/905.txt	0	Normal
+data/receipts_corpus/images/906.jpg	data/receipts_corpus/txt/906.txt	0	Normal
+data/receipts_corpus/images/907.jpg	data/receipts_corpus/txt/907.txt	0	Normal
+data/forged/909.jpg	data/forgedtxt/909.txt	1	Fraud
+data/receipts_corpus/images/911.jpg	data/receipts_corpus/txt/911.txt	0	Normal
+data/receipts_corpus/images/912.jpg	data/receipts_corpus/txt/912.txt	0	Normal
+data/receipts_corpus/images/913.jpg	data/receipts_corpus/txt/913.txt	0	Normal
+data/receipts_corpus/images/915.jpg	data/receipts_corpus/txt/915.txt	0	Normal
+data/receipts_corpus/images/923.jpg	data/receipts_corpus/txt/923.txt	0	Normal
+data/receipts_corpus/images/924.jpg	data/receipts_corpus/txt/924.txt	0	Normal
+data/receipts_corpus/images/927.jpg	data/receipts_corpus/txt/927.txt	0	Normal
+data/receipts_corpus/images/929.jpg	data/receipts_corpus/txt/929.txt	0	Normal
+data/receipts_corpus/images/934.jpg	data/receipts_corpus/txt/934.txt	0	Normal
+data/receipts_corpus/images/935.jpg	data/receipts_corpus/txt/935.txt	0	Normal
+data/receipts_corpus/images/936.jpg	data/receipts_corpus/txt/936.txt	0	Normal
+data/receipts_corpus/images/937.jpg	data/receipts_corpus/txt/937.txt	0	Normal
+data/receipts_corpus/images/938.jpg	data/receipts_corpus/txt/938.txt	0	Normal
+data/receipts_corpus/images/940.jpg	data/receipts_corpus/txt/940.txt	0	Normal
+data/receipts_corpus/images/943.jpg	data/receipts_corpus/txt/943.txt	0	Normal
+data/receipts_corpus/images/945.jpg	data/receipts_corpus/txt/945.txt	0	Normal
+data/receipts_corpus/images/949.jpg	data/receipts_corpus/txt/949.txt	0	Normal
+data/receipts_corpus/images/951.jpg	data/receipts_corpus/txt/951.txt	0	Normal
+data/receipts_corpus/images/956.jpg	data/receipts_corpus/txt/956.txt	0	Normal
+data/receipts_corpus/images/961.jpg	data/receipts_corpus/txt/961.txt	0	Normal
+data/forged/965.jpg	data/forgedtxt/965.txt	1	Fraud
+data/receipts_corpus/images/966.jpg	data/receipts_corpus/txt/966.txt	0	Normal
+data/receipts_corpus/images/967.jpg	data/receipts_corpus/txt/967.txt	0	Normal
+data/receipts_corpus/images/970.jpg	data/receipts_corpus/txt/970.txt	0	Normal
+data/receipts_corpus/images/972.jpg	data/receipts_corpus/txt/972.txt	0	Normal
+data/receipts_corpus/images/974.jpg	data/receipts_corpus/txt/974.txt	0	Normal
+data/receipts_corpus/images/976.jpg	data/receipts_corpus/txt/976.txt	0	Normal
+data/receipts_corpus/images/977.jpg	data/receipts_corpus/txt/977.txt	0	Normal
+data/receipts_corpus/images/981.jpg	data/receipts_corpus/txt/981.txt	0	Normal
+data/receipts_corpus/images/982.jpg	data/receipts_corpus/txt/982.txt	0	Normal
+data/receipts_corpus/images/984.jpg	data/receipts_corpus/txt/984.txt	0	Normal
+data/receipts_corpus/images/985.jpg	data/receipts_corpus/txt/985.txt	0	Normal
+data/receipts_corpus/images/991.jpg	data/receipts_corpus/txt/991.txt	0	Normal
+data/receipts_corpus/images/992.jpg	data/receipts_corpus/txt/992.txt	0	Normal
+data/receipts_corpus/images/994.jpg	data/receipts_corpus/txt/994.txt	0	Normal
+data/receipts_corpus/images/996.jpg	data/receipts_corpus/txt/996.txt	0	Normal
+data/receipts_corpus/images/999.jpg	data/receipts_corpus/txt/999.txt	0	Normal
+data/receipts_corpus/images/1012.jpg	data/receipts_corpus/txt/1012.txt	0	Normal
+data/receipts_corpus/images/1025.jpg	data/receipts_corpus/txt/1025.txt	0	Normal
+data/receipts_corpus/images/1041.jpg	data/receipts_corpus/txt/1041.txt	0	Normal
+data/receipts_corpus/images/1043.jpg	data/receipts_corpus/txt/1043.txt	0	Normal
+data/receipts_corpus/images/1064.jpg	data/receipts_corpus/txt/1064.txt	0	Normal
+data/receipts_corpus/images/1096.jpg	data/receipts_corpus/txt/1096.txt	0	Normal
+data/receipts_corpus/images/1097.jpg	data/receipts_corpus/txt/1097.txt	0	Normal
+data/receipts_corpus/images/1109.jpg	data/receipts_corpus/txt/1109.txt	0	Normal
+data/receipts_corpus/images/1117.jpg	data/receipts_corpus/txt/1117.txt	0	Normal
+data/receipts_corpus/images/1122.jpg	data/receipts_corpus/txt/1122.txt	0	Normal
+data/forged/1133.jpg	data/forgedtxt/1133.txt	1	Fraud
+data/receipts_corpus/images/1140.jpg	data/receipts_corpus/txt/1140.txt	0	Normal
+data/receipts_corpus/images/1143.jpg	data/receipts_corpus/txt/1143.txt	0	Normal
+data/receipts_corpus/images/1151.jpg	data/receipts_corpus/txt/1151.txt	0	Normal
+data/receipts_corpus/images/1163.jpg	data/receipts_corpus/txt/1163.txt	0	Normal
+data/receipts_corpus/images/1195.jpg	data/receipts_corpus/txt/1195.txt	0	Normal
+data/receipts_corpus/images/1205.jpg	data/receipts_corpus/txt/1205.txt	0	Normal
+data/forged/1214.jpg	data/forgedtxt/1214.txt	1	Fraud
+data/receipts_corpus/images/1216.jpg	data/receipts_corpus/txt/1216.txt	0	Normal
+data/receipts_corpus/images/1224.jpg	data/receipts_corpus/txt/1224.txt	0	Normal
+data/receipts_corpus/images/1236.jpg	data/receipts_corpus/txt/1236.txt	0	Normal
+data/receipts_corpus/images/1249.jpg	data/receipts_corpus/txt/1249.txt	0	Normal
+data/receipts_corpus/images/1256.jpg	data/receipts_corpus/txt/1256.txt	0	Normal
+data/forged/1271.jpg	data/forgedtxt/1271.txt	1	Fraud
+data/receipts_corpus/images/1287.jpg	data/receipts_corpus/txt/1287.txt	0	Normal
+data/receipts_corpus/images/1317.jpg	data/receipts_corpus/txt/1317.txt	0	Normal
+data/receipts_corpus/images/1327.jpg	data/receipts_corpus/txt/1327.txt	0	Normal
+data/receipts_corpus/images/1349.jpg	data/receipts_corpus/txt/1349.txt	0	Normal
+data/receipts_corpus/images/1372.jpg	data/receipts_corpus/txt/1372.txt	0	Normal
+data/receipts_corpus/images/1374.jpg	data/receipts_corpus/txt/1374.txt	0	Normal
+data/receipts_corpus/images/1376.jpg	data/receipts_corpus/txt/1376.txt	0	Normal
+data/receipts_corpus/images/1383.jpg	data/receipts_corpus/txt/1383.txt	0	Normal
+data/receipts_corpus/images/1384.jpg	data/receipts_corpus/txt/1384.txt	0	Normal
+data/receipts_corpus/images/1386.jpg	data/receipts_corpus/txt/1386.txt	0	Normal
+data/receipts_corpus/images/1400.jpg	data/receipts_corpus/txt/1400.txt	0	Normal
+data/receipts_corpus/images/1403.jpg	data/receipts_corpus/txt/1403.txt	0	Normal
+data/receipts_corpus/images/1417.jpg	data/receipts_corpus/txt/1417.txt	0	Normal
+data/receipts_corpus/images/1432.jpg	data/receipts_corpus/txt/1432.txt	0	Normal
+data/receipts_corpus/images/1434.jpg	data/receipts_corpus/txt/1434.txt	0	Normal
+data/receipts_corpus/images/1442.jpg	data/receipts_corpus/txt/1442.txt	0	Normal
+data/forged/1453.jpg	data/forgedtxt/1453.txt	1	Fraud
+data/receipts_corpus/images/1459.jpg	data/receipts_corpus/txt/1459.txt	0	Normal
+data/receipts_corpus/images/1462.jpg	data/receipts_corpus/txt/1462.txt	0	Normal
+data/receipts_corpus/images/1468.jpg	data/receipts_corpus/txt/1468.txt	0	Normal
+data/receipts_corpus/images/1474.jpg	data/receipts_corpus/txt/1474.txt	0	Normal
+data/receipts_corpus/images/1486.jpg	data/receipts_corpus/txt/1486.txt	0	Normal
+data/receipts_corpus/images/1500.jpg	data/receipts_corpus/txt/1500.txt	0	Normal
+data/receipts_corpus/images/1501.jpg	data/receipts_corpus/txt/1501.txt	0	Normal
+data/receipts_corpus/images/1530.jpg	data/receipts_corpus/txt/1530.txt	0	Normal
+data/receipts_corpus/images/1533.jpg	data/receipts_corpus/txt/1533.txt	0	Normal
+data/receipts_corpus/images/1539.jpg	data/receipts_corpus/txt/1539.txt	0	Normal
+data/receipts_corpus/images/1540.jpg	data/receipts_corpus/txt/1540.txt	0	Normal
+data/receipts_corpus/images/1543.jpg	data/receipts_corpus/txt/1543.txt	0	Normal
+data/receipts_corpus/images/1546.jpg	data/receipts_corpus/txt/1546.txt	0	Normal
+data/receipts_corpus/images/1557.jpg	data/receipts_corpus/txt/1557.txt	0	Normal
+data/receipts_corpus/images/1565.jpg	data/receipts_corpus/txt/1565.txt	0	Normal
+data/receipts_corpus/images/1567.jpg	data/receipts_corpus/txt/1567.txt	0	Normal
+data/receipts_corpus/images/1597.jpg	data/receipts_corpus/txt/1597.txt	0	Normal
+data/receipts_corpus/images/1607.jpg	data/receipts_corpus/txt/1607.txt	0	Normal
+data/receipts_corpus/images/1610.jpg	data/receipts_corpus/txt/1610.txt	0	Normal
+data/receipts_corpus/images/1623.jpg	data/receipts_corpus/txt/1623.txt	0	Normal
+data/receipts_corpus/images/1627.jpg	data/receipts_corpus/txt/1627.txt	0	Normal
+data/receipts_corpus/images/1657.jpg	data/receipts_corpus/txt/1657.txt	0	Normal
+data/receipts_corpus/images/1662.jpg	data/receipts_corpus/txt/1662.txt	0	Normal
+data/forged/1666.jpg	data/forgedtxt/1666.txt	1	Fraud
+data/receipts_corpus/images/1676.jpg	data/receipts_corpus/txt/1676.txt	0	Normal
+data/receipts_corpus/images/1690.jpg	data/receipts_corpus/txt/1690.txt	0	Normal
+data/receipts_corpus/images/1697.jpg	data/receipts_corpus/txt/1697.txt	0	Normal
+data/receipts_corpus/images/1698.jpg	data/receipts_corpus/txt/1698.txt	0	Normal
+data/receipts_corpus/images/1699.jpg	data/receipts_corpus/txt/1699.txt	0	Normal
+data/receipts_corpus/images/1712.jpg	data/receipts_corpus/txt/1712.txt	0	Normal
+data/receipts_corpus/images/1720.jpg	data/receipts_corpus/txt/1720.txt	0	Normal
+data/receipts_corpus/images/1728.jpg	data/receipts_corpus/txt/1728.txt	0	Normal
+data/receipts_corpus/images/1731.jpg	data/receipts_corpus/txt/1731.txt	0	Normal
+data/receipts_corpus/images/1734.jpg	data/receipts_corpus/txt/1734.txt	0	Normal
+data/forged/1738.jpg	data/forgedtxt/1738.txt	1	Fraud
+data/receipts_corpus/images/1751.jpg	data/receipts_corpus/txt/1751.txt	0	Normal
+data/receipts_corpus/images/1780.jpg	data/receipts_corpus/txt/1780.txt	0	Normal
+data/receipts_corpus/images/1795.jpg	data/receipts_corpus/txt/1795.txt	0	Normal
+data/receipts_corpus/images/1815.jpg	data/receipts_corpus/txt/1815.txt	0	Normal
+data/receipts_corpus/images/1829.jpg	data/receipts_corpus/txt/1829.txt	0	Normal
+data/receipts_corpus/images/1837.jpg	data/receipts_corpus/txt/1837.txt	0	Normal
+data/receipts_corpus/images/1840.jpg	data/receipts_corpus/txt/1840.txt	0	Normal
+data/receipts_corpus/images/1856.jpg	data/receipts_corpus/txt/1856.txt	0	Normal
+data/receipts_corpus/images/1869.jpg	data/receipts_corpus/txt/1869.txt	0	Normal
+data/receipts_corpus/images/1901.jpg	data/receipts_corpus/txt/1901.txt	0	Normal
+data/receipts_corpus/images/1902.jpg	data/receipts_corpus/txt/1902.txt	0	Normal
+data/receipts_corpus/images/1919.jpg	data/receipts_corpus/txt/1919.txt	0	Normal
+data/receipts_corpus/images/1929.jpg	data/receipts_corpus/txt/1929.txt	0	Normal
+data/receipts_corpus/images/1934.jpg	data/receipts_corpus/txt/1934.txt	0	Normal
+data/receipts_corpus/images/1964.jpg	data/receipts_corpus/txt/1964.txt	0	Normal
