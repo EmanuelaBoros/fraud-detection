@@ -123,82 +123,52 @@ args.device = device
 
 print('Device', device)
 
-class AttentionHead(nn.Module):
-    def __init__(self, h_size, hidden_dim=512):
-        super().__init__()
-        self.W = nn.Linear(h_size, hidden_dim)
-        self.V = nn.Linear(hidden_dim, 1)
-
-    def forward(self, features):
-        att = torch.tanh(self.W(features))
-        score = self.V(att)
-        attention_weights = torch.softmax(score, dim=1)
-        context_vector = attention_weights * features
-        context_vector = torch.sum(context_vector, dim=1)
-
-        return context_vector
-
 
 def evaluation(model, epoch, test_df, loader):
+    
     model.eval()
+    
     fin_targets = []
     fin_outputs = []
     fin_probabilities = []
+    
     print('EPOCH:', epoch)
+    
     with torch.no_grad():
         for _, data in tqdm(enumerate(loader),
                             total=len(loader)):
-            ids = data['input_ids'].to(device, dtype=torch.long)
+            
+            ids_image = data['ids_image'].to(device, dtype=torch.long)
             ids_text = data['ids_text'].to(device, dtype=torch.long)
-            mask = data['attention_mask'].to(device, dtype=torch.long)
+            
+            mask_image = data['mask_image'].to(device, dtype=torch.long)
             mask_text = data['mask_text'].to(device, dtype=torch.long)
-            token_type_ids = data['token_type_ids'].to(
-                device, dtype=torch.long)
-            token_type_ids_text = data['token_type_ids_text'].to(
-                device, dtype=torch.long)
+            
+            token_type_ids_text = data['token_type_ids_text'].to(device, dtype=torch.long)
+            
             bbox = data['bbox'].to(device, dtype=torch.long)
+            
             targets = data['targets'].to(device, dtype=torch.float)
+            
             pixel_values = data['image'].to(device, dtype=torch.float)
-
-            logits = model(input_ids=ids,
-                           input_ids_text=ids_text,
+    
+            logits = model(ids_image=ids_image,
+                           ids_text=ids_text,
                            bbox=bbox,
                            image=pixel_values,
-                           attention_mask=mask,
-                           token_type_ids=token_type_ids,
-                           attention_mask_text=mask_text,
+                           mask_image=mask_image,
+                           mask_text=mask_text,
                            token_type_ids_text=token_type_ids_text)
             
             fin_outputs += logits.reshape(-1).cpu().detach().numpy().tolist()
-            # import pdb;pdb.set_trace()
-            # fin_outputs += output_types[idx].reshape(-1).cpu().detach().numpy().tolist()
-            
-            # fin_outputs.extend(torch.argmax(nn.Softmax(dim=1)(logits), -1).cpu().detach().numpy().tolist())
+
             fin_probabilities.extend(torch.max(nn.Sigmoid()(logits), dim=1).values.cpu().detach().numpy().tolist())
             
-            fin_targets.extend(
-                targets.cpu().detach().numpy().tolist())
+            fin_targets.extend(targets.cpu().detach().numpy().tolist())
 
-    # accuracy = metrics.accuracy_score(
-    #     fin_targets, fin_outputs)
-    # f1_score_micro = metrics.f1_score(
-    #     fin_targets, fin_outputs, average='micro')
-    # f1_score_macro = metrics.f1_score(
-    #     fin_targets, fin_outputs, average='macro')
-    # print('Macro:', metrics.precision_recall_fscore_support(fin_targets, fin_outputs, average='macro'))
-    # print('Micro:', metrics.precision_recall_fscore_support(fin_targets, fin_outputs, average='micro'))
-    # print('Weighted:', metrics.precision_recall_fscore_support(fin_targets, fin_outputs, average='weighted'))
-    
-    # fpr, tpr, thresholds = metrics.roc_curve(fin_targets, fin_probabilities, pos_label=2)
-    # print('fpr:', fpr)
-    # print('ppr:', tpr)
-    # print(thresholds)
-    # pred_scores = np.array([float(x) for x in fin_output_types['Overall']])
-    # true_scores = np.array(fin_targets_types['Overall'])
-    # print(pred_scores[:10])
-    # print(true_scores[:10])
     from scipy.stats import pearsonr
     pearsonr_corr = pearsonr(fin_outputs, fin_targets)
+    
     print("Pearson-r:", pearsonr_corr[0])
     print("p-value:", pearsonr_corr[1])
 
@@ -206,22 +176,19 @@ def evaluation(model, epoch, test_df, loader):
                                           average='micro')
     roc_auc_score_macro = metrics.roc_auc_score(fin_targets, fin_probabilities, 
                                           average='macro')
-    # print(f"Accuracy Score  = {accuracy}")
-    # print(f"F1 Score (Micro) = {f1_score_micro}")
-    # print(f"F1 Score (Macro) = {f1_score_macro}")
+
     print(f"ROC AUC (Micro) = {roc_auc_score_micro}")
     print(f"ROC AUC (Macro) = {roc_auc_score_macro}")
     
     fin_outputs = np.array(fin_outputs)
     print(fin_targets[:10])
     print(fin_outputs[:10])
-    # import pdb;pdb.set_trace()
     
     try:
         fin_outputs = np.where(fin_outputs < np.mean(fin_outputs), 0, fin_outputs)
         fin_outputs = np.where(fin_outputs >= np.mean(fin_outputs), 1, fin_outputs)
         print(fin_outputs[:10])
-        print(metrics.classification_report(fin_targets,fin_outputs,digits=4))#, target_names=['Normal', 'Fraud']))
+        print(metrics.classification_report(fin_targets, fin_outputs, digits=4))#, target_names=['Normal', 'Fraud']))
     except:
         pass
     with open(os.path.join(output_dir, 'test.results.' + str(epoch) + '.txt'), 'w', encoding='utf-8') as f:
@@ -234,132 +201,86 @@ def evaluation(model, epoch, test_df, loader):
         
     return fin_targets, fin_outputs
 
-from sadice import SelfAdjDiceLoss
-from dice_loss import DiceLoss
-
-criterion = SelfAdjDiceLoss()
-#criterion = nn.BCELoss()
-#criterion = nn.CrossEntropyLoss()
 def loss_fn(outputs, targets):
     return torch.nn.MSELoss()(outputs, targets.view(-1, 1))
-# def loss_fn(outputs, targets):
-#     return torch.nn.BCEWithLogitsLoss()(outputs, targets)
-
-
-# def loss_fct(outputs, targets):
-#     return torch.nn.MSELoss()(outputs, targets.view(-1, 1))
-
-
 
 def train(model, optimizer, scheduler, epoch, tokenizer_text, processor, test_df, valid_df, testing_loader, valid_loader):
+
     model.train()
 
     for step, data in tqdm(enumerate(training_loader),
                            total=len(training_loader)):
 
-        #        dict_keys(['input_ids', 'token_type_ids', 'attention_mask', 'bbox', 'image'])
-        ids = data['input_ids'].to(device, dtype=torch.long)
+        ids_image = data['ids_image'].to(device, dtype=torch.long)
         ids_text = data['ids_text'].to(device, dtype=torch.long)
-        mask = data['attention_mask'].to(device, dtype=torch.long)
+        
+        mask_image = data['mask_image'].to(device, dtype=torch.long)
         mask_text = data['mask_text'].to(device, dtype=torch.long)
-        token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
-        token_type_ids_text = data['token_type_ids_text'].to(
-            device, dtype=torch.long)
+        
+        token_type_ids_text = data['token_type_ids_text'].to(device, dtype=torch.long)
+        
         bbox = data['bbox'].to(device, dtype=torch.long)
+        
         targets = data['targets'].to(device, dtype=torch.float)
+        
         pixel_values = data['image'].to(device, dtype=torch.float)
 
-        logits = model(input_ids=ids,
-                       input_ids_text=ids_text,
+        logits = model(ids_image=ids_image,
+                       ids_text=ids_text,
                        bbox=bbox,
                        image=pixel_values,
-                       attention_mask=mask,
-                       token_type_ids=token_type_ids,
-                       attention_mask_text=mask_text,
+                       mask_image=mask_image,
+                       mask_text=mask_text,
                        token_type_ids_text=token_type_ids_text)
 
         optimizer.zero_grad()
-        # CrossEntropyLoss
-
-#        pclass_onehot = torch.zeros(targets.shape[0], 2)
-#        targets = pclass_onehot.scatter_(1, targets.to(torch.int64).unsqueeze(1), 1.0)
-#        print(targets)
-#        loss = torch.nn.CrossEntropyLoss()(logits, targets)
-#        loss = torch.nn.BCEWithLogitsLoss()(logits, targets)
-        # torch.nn.functional torch.nn.CrossEntropyLoss()
-#        loss = torch.nn.BCEWithLogitsLoss()(logits.view(-1), targets)
-
-#        import pdb;pdb.set_trace()
-#        loss = torch.nn.BCEWithLogitsLoss()(torch.max(logits, -1).values.long(), targets.to(torch.int64))
-#        loss = torch.nn.BCEWithLogitsLoss()(torch.argmax(nn.Softmax(dim=1)(logits), -1).long(), targets.to(torch.int64))
-#        print(torch.argmax(nn.Softmax(dim=1)(logits), -1).float())
-#        print(targets)
-#        loss = torch.nn.CrossEntropyLoss()(logits, targets.long())
-#        print(nn.Softmax(dim=1)(logits))
         
-        # import pdb;pdb.set_trace()
-#        loss = criterion(nn.Sigmoid()(logits), targets.to(torch.int64))
-#        loss = criterion(nn.Sigmoid()(logits).view(-1), targets.float())
-        # loss = criterion(nn.Softmax(dim=1)(logits), targets.to(torch.int64))
-#        loss = criterion(torch.argmax(nn.Softmax(dim=1)(logits), -1).float(), targets)
-        
-#        loss = torch.nn.MSELoss()(logits.view(-1), targets)
         loss = loss_fn(logits, targets)
-#        print(loss)
-#        loss = sum(losses)
 
         if step % args.val_steps == 0 and step > 0:
             evaluation(model, "test_step{}_epoch{}".format(step, epoch), test_df, testing_loader)
-#            evaluation(model, "valid_step{}_epoch{}".format(step, epoch), valid_df, valid_loader)
             print(f'Epoch: {epoch}, Loss:  {loss.item()}')
-#
-#        if step % args.save_steps == 0:
-#            model_to_save = (
-#                model.module if hasattr(model, "module") else model
-#            )  # Take care of distributed/parallel training
-#
-#            torch.save(model_to_save.state_dict(), os.path.join(output_dir, 'model.pth'))
-#
-#            tokenizer_text.save_pretrained(output_dir)
-#            processor.save_pretrained(output_dir)
-#
-#            torch.save(
-#                args, os.path.join(
-#                    output_dir, "training_args.bin"))
-#            torch.save(
-#                model.state_dict(), os.path.join(
-#                    output_dir, "model.pt"))
-#            torch.save(
-#                optimizer.state_dict(), os.path.join(
-#                    output_dir, "optimizer.pt"))
-#            torch.save(
-#                scheduler.state_dict(), os.path.join(
-#                    output_dir, "scheduler.pt"))
-#            print(
-#                "Saving optimizer and scheduler states to %s", output_dir)
+
+        if step % args.save_steps == 0:
+            model_to_save = (
+                model.module if hasattr(model, "module") else model
+            )  # Take care of distributed/parallel training
+
+            torch.save(model_to_save.state_dict(), os.path.join(output_dir, 'model.pth'))
+
+            tokenizer_text.save_pretrained(output_dir)
+            processor.save_pretrained(output_dir)
+
+            torch.save(
+                args, os.path.join(
+                    output_dir, "training_args.bin"))
+            torch.save(
+                model.state_dict(), os.path.join(
+                    output_dir, "model.pt"))
+            torch.save(
+                optimizer.state_dict(), os.path.join(
+                    output_dir, "optimizer.pt"))
+            torch.save(
+                scheduler.state_dict(), os.path.join(
+                    output_dir, "scheduler.pt"))
+            print(
+                "Saving optimizer and scheduler states to %s", output_dir)
 
         model.zero_grad()
         loss.backward()
         optimizer.step()
         scheduler.step()
 
-MODEL_IMAGE = 'microsoft/layoutlmv2-base-uncased'
-# MODEL_IMAGE = 'microsoft/layoutxlm-base'
 if __name__ == '__main__':
     train_df = pd.read_csv(train_file, sep='\t')
     test_df = pd.read_csv(test_file, sep='\t')
     valid_df = pd.read_csv(valid_file, sep='\t')
-#    train_df = pd.read_csv(train_file)
-#    test_df = pd.read_csv(test_file)
-#    valid_df = pd.read_csv(valid_file)
     
     train_df['id'] = train_df['text'].apply(lambda x: int(x[x.index('txt/')+4:-4]))
     test_df['id'] = test_df['text'].apply(lambda x: int(x[x.index('txt/')+4:-4]))
     valid_df['id'] = valid_df['text'].apply(lambda x: int(x[x.index('txt/')+4:-4]))
     
     print(train_df.head())
-    
-#    import pdb;pdb.set_trace()
     
     entities_df = pd.read_csv('data/entities.csv', sep='\t')
     columns = ['Nom Ticket', 'date', 'heure', 'entreprise', 'adresse', 'Ville',
@@ -405,57 +326,54 @@ if __name__ == '__main__':
     print("TRAIN Dataset: {}".format(train_df.shape))
     print("TEST Dataset: {}".format(test_df.shape))
     print("VALID Dataset: {}".format(valid_df.shape))
+    
+    print(train_df.head())
 
     if args.do_train:
-        
+        from transformers import LayoutLMv2Tokenizer
+
+        MODEL_IMAGE = 'microsoft/layoutlmv2-base-uncased'
 
         feature_extractor = LayoutLMv2FeatureExtractor()
-        
-        from transformers import LayoutLMv2Tokenizer
         tokenizer_image = LayoutLMv2Tokenizer.from_pretrained(MODEL_IMAGE)
-        # tokenizer_image = LayoutXLMTokenizerFast.from_pretrained(
-        #     MODEL_IMAGE)
-        
-        tokenizer_text = AutoTokenizer.from_pretrained(
-            args.model_name_or_path, do_lower_case=False, truncation=True)
-
         processor = LayoutLMv2Processor(feature_extractor, tokenizer_image)
-#        processor = LayoutLMv2Processor.from_pretrained("microsoft/layoutxlm-base")
+        
+        tokenizer_text = AutoTokenizer.from_pretrained(args.model_name_or_path, do_lower_case=False, truncation=True)
         
         training_set = CustomDataset(train_df, tokenizer_text, processor, MAX_LEN)
         testing_set = CustomDataset(test_df, tokenizer_text, processor, MAX_LEN)
         valid_set = CustomDataset(valid_df, tokenizer_text, processor, MAX_LEN)
 
 
-        # baseline
+        # baseline ------------------------------------------
         from sklearn.linear_model import LogisticRegression
         from sklearn.feature_extraction.text import TfidfVectorizer
         text_transformer = TfidfVectorizer(ngram_range=(1, 2), lowercase=True, max_features=150000)
+        
         def get_text(path):
             try:
                 with open(path.replace('data/receipts_corpus/txt/', 'data/triples_split/all/').replace('data/receipts_corpus/forgedtxt/', 'data/triples_split/all/'), 'r') as f:
                     text = str(f.read())
             except:
+                print(path)
                 with open(path, 'r') as f:
                     text = str(f.read())
                     
             text = text.replace('_', ' ').strip()
             return text.strip()
-
+        
         data_train = [get_text(path) for path in training_set.text]
         data_test = [get_text(path) for path in testing_set.text]
-
-        
 
         X_train_text = text_transformer.fit_transform(data_train)
         X_test_text = text_transformer.transform(data_test)
         
-        # logit = LogisticRegression(random_state=17, n_jobs=4)
-        # logit.fit(X_train_text, training_set.targets)
+        logit = LogisticRegression(random_state=17, n_jobs=4)
+        logit.fit(X_train_text, training_set.targets)
         
-        # test_preds = logit.predict(X_test_text)
+        test_preds = logit.predict(X_test_text)
         
-        # print(metrics.classification_report(testing_set.targets, test_preds, digits=4))
+        print(metrics.classification_report(testing_set.targets, test_preds, digits=4))
         
         from sklearn.svm import LinearSVR
         logit = LinearSVR()
@@ -463,13 +381,13 @@ if __name__ == '__main__':
         
         test_preds = logit.predict(X_test_text)
 
-        # import pdb;pdb.set_trace()
-
         test_preds = np.where(test_preds < np.mean(test_preds), 0, test_preds)
         test_preds = np.where(test_preds >= np.mean(test_preds), 1, test_preds)
         test_preds = np.where(test_preds < np.mean(test_preds), 0, test_preds)
         
         print(metrics.classification_report(testing_set.targets, test_preds, digits=4))
+        # baseline ------------------------------------------
+
 
         train_params = {'batch_size': TRAIN_BATCH_SIZE,
                         'shuffle': True,
@@ -484,55 +402,33 @@ if __name__ == '__main__':
         training_loader = DataLoader(training_set, **train_params)
         testing_loader = DataLoader(testing_set, **test_params)
         valid_loader = DataLoader(valid_set, **test_params)
-    
 
-        config_image = AutoConfig.from_pretrained(MODEL_IMAGE)
-        config_text = AutoConfig.from_pretrained(args.model_name_or_path)
+        config_image = AutoConfig.from_pretrained(MODEL_IMAGE) # config for image
+        config_text = AutoConfig.from_pretrained(args.model_name_or_path) # config for language model - camembert
 
         model = LayoutLMvForSequenceClassification(config_image, config_text, args, MODEL_IMAGE)
     
         model.to(device)
         if args.n_gpu > 1:
             model = torch.nn.DataParallel(model)
-    
-        no_decay = ["bias", "LayerNorm.weight"]
-        optimizer_grouped_parameters = [
-            {
-                "params": [
-                    p for n, p in model.named_parameters() if not any(
-                        nd in n for nd in no_decay)], "weight_decay": args.weight_decay, }, {
-                "params": [
-                    p for n, p in model.named_parameters() if any(
-                        nd in n for nd in no_decay)], "weight_decay": 0.0}, ]
-    
-        t_total = len(
-            training_loader) // args.gradient_accumulation_steps * args.num_train_epochs
-    #
+        
+        t_total = len(training_loader) // args.gradient_accumulation_steps * args.num_train_epochs
+
         optimizer = torch.optim.AdamW(model.parameters(),
-    #        optimizer_grouped_parameters,
             lr=args.learning_rate,
             eps=args.adam_epsilon,
             betas=(
                 args.adam_beta1,
                 args.adam_beta2))
 
-
-    
         scheduler = get_linear_schedule_with_warmup(
             optimizer,
             num_warmup_steps=args.warmup_steps,
             num_training_steps=t_total)
-    
-    #    scheduler = get_cosine_schedule_with_warmup(
-    #            optimizer,
-    #            num_training_steps=t_total,
-    #            num_warmup_steps=args.warmup_steps)
-    
-    
+
         for epoch in range(int(args.num_train_epochs)):
             train(model, optimizer, scheduler, epoch, 
                   tokenizer_text, processor, test_df, valid_df, testing_loader, valid_loader)
-#            _, _ = evaluation(model, epoch, test_df, valid_loader)
             _, _ = evaluation(model, epoch, test_df, testing_loader)
     
     #if args.do_predict:
