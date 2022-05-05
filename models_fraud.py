@@ -20,7 +20,7 @@ from transformers.file_utils import TensorType
 from transformers.utils import logging
 import torch
 from torch.utils.data import Dataset
-from transformers import AutoModel, LayoutLMv2Model
+from transformers import AutoModel#, LayoutLMv2Model
 
 
 class CustomDataset(Dataset):
@@ -68,11 +68,12 @@ class CustomDataset(Dataset):
 
         label = self.targets[index]
         try:
-            with open(self.text[index].replace('data/receipts_corpus/txt/', 'data/triples_split/all/').replace(
-                    'data/receipts_corpus/forgedtxt/', 'data/triples_split/all/'), 'r') as f:
+            with open(self.text[index].replace('data/receipts_corpus/txt/', 'data/triples_split/incr_triples/all/').replace(
+                    'data/receipts_corpus/forgedtxt/', 'data/triples_split/incr_triples/all/'), 'r') as f:
                 text = str(f.read())
         except BaseException:
             print(self.text[index], 'Missing')
+            
             with open(self.text[index], 'r') as f:
                 text = str(f.read())
 
@@ -93,13 +94,31 @@ class CustomDataset(Dataset):
         mask = inputs['attention_mask']
         token_type_ids = inputs["token_type_ids"]
 
-        image = Image.open(self.image[index])
-        input_image = self.image_feature_extractor(
-            images=image,
-            return_tensors="pt",
-            max_length=self.max_len,
-            padding='max_length',
-            truncation=True)
+#        image = Image.open(self.image[index])
+#        input_image = self.image_feature_extractor(
+#            images=image,
+#            return_tensors="pt",
+#            max_length=self.max_len,
+#            padding='max_length',
+#            truncation=True)
+#        return {
+#            'ids_text': torch.tensor(
+#                ids,
+#                dtype=torch.long),
+#            'mask_text': torch.tensor(
+#                mask,
+#                dtype=torch.long),
+#            'token_type_ids_text': torch.tensor(
+#                token_type_ids,
+#                dtype=torch.long),
+#            'ids_image': input_image.input_ids.squeeze(),
+#            'mask_image': input_image.attention_mask.squeeze(),
+#            'bbox': input_image.bbox.squeeze(),
+#            'targets': torch.tensor(
+#                label,
+#                dtype=torch.float),
+#            'image': input_image.image.squeeze()}
+
         return {
             'ids_text': torch.tensor(
                 ids,
@@ -110,13 +129,21 @@ class CustomDataset(Dataset):
             'token_type_ids_text': torch.tensor(
                 token_type_ids,
                 dtype=torch.long),
-            'ids_image': input_image.input_ids.squeeze(),
-            'mask_image': input_image.attention_mask.squeeze(),
-            'bbox': input_image.bbox.squeeze(),
+            'ids_image': torch.tensor(
+                ids,
+                dtype=torch.long),
+            'mask_image': torch.tensor(
+                ids,
+                dtype=torch.long),
+            'bbox': torch.tensor(
+                ids,
+                dtype=torch.long),
             'targets': torch.tensor(
                 label,
                 dtype=torch.float),
-            'image': input_image.image.squeeze()}
+            'image': torch.tensor(
+                ids,
+                dtype=torch.long)}
 
 
 class LayoutLMvForSequenceClassification(torch.nn.Module):
@@ -130,12 +157,12 @@ class LayoutLMvForSequenceClassification(torch.nn.Module):
         self.text_model = AutoModel.from_pretrained(args.model_name_or_path,
                                                     config=config_text)
 
-        self.image_model = LayoutLMv2Model.from_pretrained(MODEL_IMAGE)
+        #self.image_model = LayoutLMv2Model.from_pretrained(MODEL_IMAGE)
 
         self.dropout = nn.Dropout(0.2)
 
         self.classifier = nn.Linear(
-            self.text_model.config.hidden_size * 4,
+            self.text_model.config.hidden_size * 1,
             self.num_labels)
 
     def get_input_embeddings(self):
@@ -215,60 +242,69 @@ class LayoutLMvForSequenceClassification(torch.nn.Module):
         final_shape = list(input_shape)
         final_shape[1] += visual_shape[1]
         final_shape = torch.Size(final_shape)
+        #
+        # visual_bbox = self.image_model._calc_visual_bbox(
+        #     self.config.image_feature_pool_shape, bbox, device, final_shape
+        # )
+        #
+        # visual_position_ids = torch.arange(
+        #     0,
+        #     visual_shape[1],
+        #     dtype=torch.long,
+        #     device=device).repeat(
+        #     input_shape[0],
+        #     1)
+        #
+        # initial_image_embeddings = self.image_model._calc_img_embeddings(
+        #     image=image,
+        #     bbox=visual_bbox,
+        #     position_ids=visual_position_ids,
+        # )
+        #
+        # outputs = self.image_model(
+        #     input_ids=ids_image,
+        #     bbox=bbox,
+        #     image=image,
+        #     attention_mask=mask_image,
+        #     position_ids=position_ids,
+        #     head_mask=head_mask,
+        #     inputs_embeds=inputs_embeds,
+        #     output_attentions=output_attentions,
+        #     output_hidden_states=output_hidden_states,
+        #     return_dict=return_dict,
+        # )
+        # if ids_image is not None:
+        #     input_shape = ids_image.size()
+        # else:
+        #     input_shape = inputs_embeds.size()[:-1]
 
-        visual_bbox = self.image_model._calc_visual_bbox(
-            self.config.image_feature_pool_shape, bbox, device, final_shape
-        )
+        #seq_length = input_shape[1]
 
-        visual_position_ids = torch.arange(
-            0,
-            visual_shape[1],
-            dtype=torch.long,
-            device=device).repeat(
-            input_shape[0],
-            1)
+        #sequence_output, final_image_embeddings = outputs[0][:,
+        #                                                     :seq_length], outputs[0][:, seq_length:]
 
-        initial_image_embeddings = self.image_model._calc_img_embeddings(
-            image=image,
-            bbox=visual_bbox,
-            position_ids=visual_position_ids,
-        )
-
-        outputs = self.image_model(
-            input_ids=ids_image,
-            bbox=bbox,
-            image=image,
-            attention_mask=mask_image,
-            position_ids=position_ids,
-            head_mask=head_mask,
-            inputs_embeds=inputs_embeds,
-            output_attentions=output_attentions,
-            output_hidden_states=output_hidden_states,
-            return_dict=return_dict,
-        )
-        if ids_image is not None:
-            input_shape = ids_image.size()
-        else:
-            input_shape = inputs_embeds.size()[:-1]
-
-        seq_length = input_shape[1]
-
-        sequence_output, final_image_embeddings = outputs[0][:,
-                                                             :seq_length], outputs[0][:, seq_length:]
-
-        cls_final_output = sequence_output[:, 0, :]
+        #cls_final_output = sequence_output[:, 0, :]
 
         # average-pool the visual embeddings
-        pooled_initial_image_embeddings = initial_image_embeddings.mean(dim=1)
-        pooled_final_image_embeddings = final_image_embeddings.mean(dim=1)
+        #pooled_initial_image_embeddings = initial_image_embeddings.mean(dim=1)
+        #pooled_final_image_embeddings = final_image_embeddings.mean(dim=1)
         # concatenate with cls_final_output
 
-        sequence_output = torch.cat([cls_final_output,
-                                     pooled_initial_image_embeddings,
-                                     pooled_final_image_embeddings,
-                                     text_outputs],
-                                    dim=1)
+        # sequence_output = torch.cat([cls_final_output,
+        #                              pooled_initial_image_embeddings,
+        #                              pooled_final_image_embeddings,
+        #                              text_outputs],
+        #                             dim=1)
 
-        logits = self.classifier(sequence_output)
+
+        # sequence_output = torch.cat([text_outputs],
+        #                            dim=1)
+
+        # sequence_output = torch.cat([text_outputs,
+        #                              pooled_initial_image_embeddings,
+        #                              pooled_final_image_embeddings],
+        #                             dim=1)
+
+        logits = self.classifier(text_outputs)
 
         return logits

@@ -437,16 +437,17 @@ if __name__ == '__main__':
 
         def get_text(path):
             try:
-                with open(path.replace('data/receipts_corpus/txt/', 'data/triples_split/all/').replace('data/receipts_corpus/forgedtxt/', 'data/triples_split/all/'), 'r') as f:
+                with open(path.replace('data/receipts_corpus/txt/', 'data/triples_split/incr_triples/all/').replace('data/receipts_corpus/forgedtxt/', 'data/triples_split/incr_triples/all/'), 'r') as f:
                     text = str(f.read())
             except BaseException:
-                print(path)
-                with open(path, 'r') as f:
-                    text = str(f.read())
+                print('Problem -->', path)
+            with open(path, 'r') as f:
+                text = str(f.read())
 
             text = text.replace('_', ' ').strip()
             return text.strip()
-
+        
+        
         data_train = [get_text(path) for path in training_set.text]
         data_test = [get_text(path) for path in testing_set.text]
 
@@ -490,7 +491,7 @@ if __name__ == '__main__':
                        'shuffle': False,
                        'num_workers': 0
                        }
-
+        
         training_loader = DataLoader(training_set, **train_params)
         testing_loader = DataLoader(testing_set, **test_params)
         valid_loader = DataLoader(valid_set, **test_params)
